@@ -33,14 +33,14 @@ run: ## Run the container image
 	docker run -d -it -p 3000:3000 ${APP_NAME}
 
 pause: ## Pause the containers
-	docker container rm -f $(shell docker ps -aq)
+	docker container rm -f ${APP_NAME}
 
 clean: ## Clean the images
-	docker rmi -f $(shell docker images -a -q)
+	docker rmi -f ${APP_NAME}
 
 remove: ## Remove the volumes
-	docker volume rm -f $(shell docker volume ls -q)
+	docker volume rm -f ${APP_NAME}
 
 #-- Database
-db: ## Start the local database
-	docker-compose up -d pg
+db: ## Start the local database MySQL
+	docker-compose up -d mysql

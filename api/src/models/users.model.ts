@@ -1,9 +1,39 @@
+import { Sequelize, DataTypes, Model, Optional } from 'sequelize';
 import { User } from '@interfaces/users.interface';
 
-// password: password
-export const UserModel: User[] = [
-  { id: 1, email: 'example1@email.com', password: '$2b$10$TBEfaCe1oo.2jfkBDWcj/usBj4oECsW2wOoDXpCa2IH9xqCpEK/hC' },
-  { id: 2, email: 'example2@email.com', password: '$2b$10$TBEfaCe1oo.2jfkBDWcj/usBj4oECsW2wOoDXpCa2IH9xqCpEK/hC' },
-  { id: 3, email: 'example3@email.com', password: '$2b$10$TBEfaCe1oo.2jfkBDWcj/usBj4oECsW2wOoDXpCa2IH9xqCpEK/hC' },
-  { id: 4, email: 'example4@email.com', password: '$2b$10$TBEfaCe1oo.2jfkBDWcj/usBj4oECsW2wOoDXpCa2IH9xqCpEK/hC' },
-];
+export type UserCreationAttributes = Optional<User, 'id' | 'email' | 'password'>;
+
+export class UserModel extends Model<User, UserCreationAttributes> implements User {
+  public id: number;
+  public email: string;
+  public password: string;
+
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
+}
+
+export default function (sequelize: Sequelize): typeof UserModel {
+  UserModel.init(
+    {
+      id: {
+        autoIncrement: true,
+        primaryKey: true,
+        type: DataTypes.INTEGER,
+      },
+      email: {
+        allowNull: false,
+        type: DataTypes.STRING(45),
+      },
+      password: {
+        allowNull: false,
+        type: DataTypes.STRING(255),
+      },
+    },
+    {
+      tableName: 'users',
+      sequelize,
+    },
+  );
+
+  return UserModel;
+}

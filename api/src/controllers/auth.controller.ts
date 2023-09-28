@@ -1,15 +1,16 @@
 import { NextFunction, Request, Response } from 'express';
 import { Container } from 'typedi';
-import { RequestWithUser } from '@interfaces/auth.interface';
+import { CreateUserDto } from '@dtos/users.dto';
 import { User } from '@interfaces/users.interface';
+import { RequestWithUser } from '@interfaces/auth.interface';
 import { AuthService } from '@services/auth.service';
 
 export class AuthController {
   public auth = Container.get(AuthService);
 
-  public signUp = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  public signUp = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const userData: User = req.body;
+      const userData: CreateUserDto = req.body;
       const signUpUserData: User = await this.auth.signup(userData);
 
       res.status(201).json({ data: signUpUserData, message: 'signup' });
@@ -18,9 +19,9 @@ export class AuthController {
     }
   };
 
-  public logIn = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  public logIn = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const userData: User = req.body;
+      const userData: CreateUserDto = req.body;
       const { cookie, findUser } = await this.auth.login(userData);
 
       res.setHeader('Set-Cookie', [cookie]);
@@ -30,7 +31,7 @@ export class AuthController {
     }
   };
 
-  public logOut = async (req: RequestWithUser, res: Response, next: NextFunction): Promise<void> => {
+  public logOut = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
       const userData: User = req.user;
       const logOutUserData: User = await this.auth.logout(userData);
