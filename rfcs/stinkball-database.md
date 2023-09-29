@@ -24,18 +24,52 @@ Database will store user information, NFL players, fantasy teams, and Stinkball 
 {
     "id": "string",
     "player_name": "string",
-    "nfl_team": "string",
+    "nfl_team": "nfl team model",
     "position": "string",
-    "weekly_points": "array of numbers",
 }
 ```
 
 - `id: string` - unique id for player
 - `player_name: string` - name of player
-- `nfl_team: string` - team player plays for
-- `position: string` - position player plays
-- `weekly_points: []` - array of points player has scored each week
+- `nfl_team: nfl team model` - foreign key to nfl team id
+- `position: string` - 
 
+
+**Weekly Points Model**
+```
+{
+    "id": "string",
+    "player_id": "string",
+    "week": "number",
+    "points": "number"
+}
+```
+
+- `id: string` - unique id for weekly points scored
+- `player_id: string` - foreign key to player id
+- `week: number` - week of nfl season
+- `points: number` - number of points scored by player for specified week
+
+
+**NFL Team Model**
+```
+{
+    "id": "string",
+    "team_name_short": "string", - 
+    "team_name_long": "string",
+    "team_city_long": "string",
+    "team_city_short": "string",
+    "team_logo": "string",
+    "team_players": "array of strings",
+}
+```
+- `id: string` - unique id for nfl team
+- `team_name_short: string` - abbreviated nfl team name
+- `team_name_long: string` - full nfl team name
+- `team_city_short: string` - abbreviated nfl team city
+- `team_city_long: string` - full nfl team city
+- `team_logo: string` - url path to stored nfl logo image
+- `team_players: []` - array of player models on nfl team
 
 
 **Fantasy Team Model**
@@ -44,10 +78,12 @@ Database will store user information, NFL players, fantasy teams, and Stinkball 
     "id": "string",
     "team_name": "string",
     "owner": "string",
+    "logo": "string"
     "week": "number",
     "points": "number",
 
-    "qb: "string",
+    "positions": {
+    "qb": "string",
     "rb1": "string",
     "rb2": "string",
     "wr1": "string",
@@ -55,24 +91,18 @@ Database will store user information, NFL players, fantasy teams, and Stinkball 
     "te": "string",
     "flex": "string",
     "k": "string",
-    "dst": "string",
+    "dst": "string"
+  }
 }
 ```
 
-- `id: string` - unique id for team
-- `team_name: string` - name of team
-- `owner: string` - id of user who owns team
+- `id: string` - unique id for fantasy team
+- `team_name: string` - fantasy team name
+- `owner: string` - foreign key to id of user who owns team
+- `logo: string` - url path to stored logo image
 - `week: number` - week of NFL season
-- `points: number` - total points scored by team
-- `qb: string` - id of quarterback
-- `rb1: string` - id of running back 1
-- `rb2: string` - id of running back 2
-- `wr1: string` - id of wide receiver 1
-- `wr2: string` - id of wide receiver 2
-- `te: string` - id of tight end
-- `flex: string` - id of flex player
-- `k: string` - id of kicker
-- `dst: string` - id of defense/special teams
+- `points: number` - total points scored by team for the week
+- `positions: enum` - string of value qb, rb1, rb2, wr1, wr2, te, flex, k, or dst
 
 
 **Match Model**
@@ -82,14 +112,19 @@ Database will store user information, NFL players, fantasy teams, and Stinkball 
     "week": "number",
     "match_type": "string",
     "match_name": "string",
-
+    "match_status": {
+        "type": "enum",
+        "values": ["completed", "upcoming", "live"]
+    },
+    
     "challenger": "string",
     "participant": "string",
     "challenger_team": "fantasy team model",
     "participant_team": "fantasy team model",
+    
 
     "winner": "string",
-    "loser": "string",
+    "loser": "string"
 }
 ```
 
@@ -97,15 +132,13 @@ Database will store user information, NFL players, fantasy teams, and Stinkball 
 - `week: number` - week of NFL season match was played
 - `match_type: string` - type of game played (public vs. private)
 - `match_name: string` - name of match
+- `match_status: enum` - status as a string valued as completed, upcoming, or live
 
 - `challenger: string` - id of user who challenged the match
 - `participant: string` - id of user who accepted the match
-- `challenger_team: fantasy team model` - fantasy team for challenger
-- `participant_team: fantasy team model` - fantasy team for participant
+- `challenger_team: fantasy team model` - foreign key to fantasy team of challenger
+- `participant_team: fantasy team model` - foreign key to fantasy team of participant
+
 
 - `winner: string` - id of user who won the match
 - `loser: string` - id of user who lost the match
-
-
-
-
