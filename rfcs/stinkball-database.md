@@ -24,16 +24,15 @@ Database will store user information, NFL players, fantasy teams, and Stinkball 
 {
     "id": "string",
     "player_name": "string",
-    "nfl_team": "nfl team model",
+    "teamId": "string",
     "position": "string",
 }
 ```
 
 - `id: string` - unique id for player
 - `player_name: string` - name of player
-- `nfl_team: nfl team model` - foreign key to nfl team id
-- `position: string` - 
-
+- `teamId: string` - foreign key to nfl team id (one of 32 unique team IDs)
+- `position: string` - position of player
 
 **Weekly Points Model**
 ```
@@ -41,7 +40,7 @@ Database will store user information, NFL players, fantasy teams, and Stinkball 
     "id": "string",
     "player_id": "string",
     "week": "number",
-    "points": "number"
+    "points": "number",
 }
 ```
 
@@ -55,7 +54,7 @@ Database will store user information, NFL players, fantasy teams, and Stinkball 
 ```
 {
     "id": "string",
-    "team_name_short": "string", - 
+    "team_name_short": "string", 
     "team_name_long": "string",
     "team_city_long": "string",
     "team_city_short": "string",
@@ -63,13 +62,13 @@ Database will store user information, NFL players, fantasy teams, and Stinkball 
     "team_players": "array of strings",
 }
 ```
-- `id: string` - unique id for nfl team
+- `id: string` - one of 32 unique nfl team IDs
 - `team_name_short: string` - abbreviated nfl team name
 - `team_name_long: string` - full nfl team name
-- `team_city_short: string` - abbreviated nfl team city
-- `team_city_long: string` - full nfl team city
-- `team_logo: string` - url path to stored nfl logo image
-- `team_players: []` - array of player models on nfl team
+- `team_city_short: string` - abbreviated nfl team city 
+- `team_city_long: string` - full nfl team city 
+- `team_logo: string` - url path to stored nfl team logo image
+- `team_players: []` - array of player IDs on nfl team
 
 
 **Fantasy Team Model**
@@ -91,7 +90,7 @@ Database will store user information, NFL players, fantasy teams, and Stinkball 
     "te": "string",
     "flex": "string",
     "k": "string",
-    "dst": "string"
+    "dst": "string",
   }
 }
 ```
@@ -124,7 +123,7 @@ Database will store user information, NFL players, fantasy teams, and Stinkball 
     
 
     "winner": "string",
-    "loser": "string"
+    "loser": "string",
 }
 ```
 
