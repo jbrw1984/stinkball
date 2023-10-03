@@ -1,50 +1,43 @@
 # Enpoints Needed For Each Page
 
-Note all enpoints describe what the endpoint should do not necassarily the name of the endpoint.
-
 ### Sign In Page
-
-- Get Username
-- Get Password
-- Check for match (username and password)
-- Directs to Match List Page
+  - POST /user/login
 
   #### Sign Up Page  
 
-  - Check for valid creditials (unique, formatting)
+  - POST /user/signup
 
   #### Forgot Password Page
 
-  - Get Username 
-  - Send email with tempory creditials
+  - GET /user/email
+  - POST /user/email/forgotpassword
 
 ### Match List Page
-
-- Get all matches (filter by signed in account)
-- Create Match button (sends to create match page)
-- Match Details button (sends to match details page)
-- Get user information (logo, username, team name)
-- Get NFL week 
-
+ - GET /matches/{id=userId}
+    * (Score, usernames, logos, team names)
+ - GET /nflweek
+ 
 ### Match Details Page
-
-- Add Player Button (Player List Page)
-- Get user information (logo, username, team name)
-- Get player information (points, team name, team logo, team city, position)
+  - GET /matches/{id=matchId}
+    * (Score, usernames, logos, team names)
+  - GET /fantasyteam/{id=fantasyteamId}
+    * (List of players selected)
 
 ### Create Match Page
 
-- Create new Match 
-- Create invitation link
-- Get NFL week
+  - POST /matches/
+  - POST /inventation/{id=matchId}
+  - GET /nflweek
 
 ### Player List Page
 
-- Get current team (players)
-- Get all players to select from
-- Add Player to team
-- Remove Player from team
-- Get user information (logo, username, team name)
-- Get player information (team name, team logo, team city, position)
-- Search players
-- Filter players by position
+  - GET /fantasyteam/{id=fantasyTeamId}
+  - GET /players/
+    * (Exclude players already on fantasy team)
+  - GET /players/{search=""}
+  - GET /players/{position=""}
+  - POST /fantasyteam/{playerId=playerId}
+    * (Add new player to team)
+  - DELETE /fantasyteam/{playerId=playerId}
+    * (Delete player from team)
+  
