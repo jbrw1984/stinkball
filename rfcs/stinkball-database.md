@@ -59,7 +59,6 @@ Database will store user information, NFL players, fantasy teams, and Stinkball 
     "team_city_long": "string",
     "team_city_short": "string",
     "team_logo": "string",
-    "team_players": "array of strings",
 }
 ```
 - `id: string` - one of 32 unique nfl team IDs
@@ -68,7 +67,6 @@ Database will store user information, NFL players, fantasy teams, and Stinkball 
 - `team_city_short: string` - abbreviated nfl team city 
 - `team_city_long: string` - full nfl team city 
 - `team_logo: string` - url path to stored nfl team logo image
-- `team_players: []` - array of player IDs on nfl team
 
 
 **Fantasy Team Model**
