@@ -26,7 +26,7 @@
 ### Create Match Page
 
   - POST /matches/
-  - POST /inventation/{id=matchId}
+  - POST /invitation/{id=matchId}
   - GET /nflweek
 
 ### Player List Page
@@ -36,8 +36,8 @@
     * (Exclude players already on fantasy team)
   - GET /players/{search=""}
   - GET /players/{position=""}
-  - POST /fantasyteam/{playerId=playerId}
+  - POST /fantasyteam/{playerId=playerId&fantasyteamId=fantasyteamId}
     * (Add new player to team)
-  - DELETE /fantasyteam/{playerId=playerId}
+  - DELETE /fantasyteam/{playerId=playerId&fantasyteamId=fantasyteamId}
     * (Delete player from team)
   
