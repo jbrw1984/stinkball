@@ -8,6 +8,7 @@ import { isRTL } from "../i18n"
 import { AppStackScreenProps } from "../navigators"
 import { colors, spacing } from "../theme"
 import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
+import { Button, ButtonText } from '@gluestack-ui/themed';
 
 const welcomeLogo = require("../../assets/images/logo.png")
 const welcomeFace = require("../../assets/images/welcome-face.png")
@@ -31,6 +32,11 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeSc
         />
         <Text tx="welcomeScreen.exciting" preset="subheading" />
         <Image style={$welcomeFace} source={welcomeFace} resizeMode="contain" />
+
+        {/* <Button>
+          <ButtonText>Epic gluestack button!</ButtonText>
+        </Button> */}
+
       </View>
 
       <View style={[$bottomContainer, $bottomContainerInsets]}>
