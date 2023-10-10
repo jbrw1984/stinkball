@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import { Image, ImageStyle, ViewStyle, ScrollView, KeyboardAvoidingView, Platform } from "react-native";
 import { LogIn } from "../components/LogIn";
-
 const stinkBallLogo = require("../../assets/images/MainStinkballLogo.png");
 
 export const WelcomeScreen = () => {
@@ -14,15 +13,14 @@ export const WelcomeScreen = () => {
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-    >
+      behavior={Platform.OS === "ios" ? "padding" : "height"}>
       <ScrollView
         ref={scrollViewRef}
         contentContainerStyle={$mainContainer}
         keyboardShouldPersistTaps="handled"
       >
         <Image style={$stinkballLogo} source={stinkBallLogo} resizeMode="contain" />
-        <LogIn onPress={handleScrollToInput} />
+        <LogIn onPress={handleScrollToInput}/>
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -30,10 +28,12 @@ export const WelcomeScreen = () => {
 
 // Styling
 const $mainContainer: ViewStyle = {
+  paddingBottom: 30,
   backgroundColor: "#1D1D1D",
   flex: 1,
   justifyContent: "center",
   alignItems: "center",
+  gap: 25,
 }
 
 const $stinkballLogo: ImageStyle = {

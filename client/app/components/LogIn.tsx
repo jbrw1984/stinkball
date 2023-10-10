@@ -7,13 +7,20 @@ interface LogInProps {
 }
 
 export const LogIn: React.FC<LogInProps> = ({ onPress }) => {
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [signUp, setSignUp] = useState<boolean>(false);
 
   const handleState = () => {
     setShowPassword((showState) => {
       return !showState;
     });
   };
+
+  const handleType = () => {
+    setSignUp((typeState) => {
+      return !typeState;
+    });
+  }
 
   return (
     <FormControl p='$4' width="80%">
@@ -25,7 +32,6 @@ export const LogIn: React.FC<LogInProps> = ({ onPress }) => {
           <Input>
             <InputField
               type="text"
-              color="$textLight300"
               placeholder='Enter your username...'
             />
           </Input>
@@ -36,7 +42,6 @@ export const LogIn: React.FC<LogInProps> = ({ onPress }) => {
           </Text>
           <Input>
             <InputField
-              color="$textLight300"
               type={showPassword ? 'text' : 'password'}
               placeholder='Enter your password...'
             />
@@ -44,10 +49,13 @@ export const LogIn: React.FC<LogInProps> = ({ onPress }) => {
               <InputIcon as={showPassword ? EyeIcon : EyeOffIcon} color='$darkBlue500' />
             </InputSlot>
           </Input>
+          <Text color='$textLight300' ml="auto" onPress={handleType}  underline={true}>
+            {signUp ? "Or Log In?" : "Or Create Account?"}
+          </Text>
         </VStack>
-        <Button ml='auto'>
+        <Button action="primary">
           <ButtonText color='$white'>
-            Login
+            {signUp ? "Sign Up" : "Log In"}
           </ButtonText>
         </Button>
       </VStack>
