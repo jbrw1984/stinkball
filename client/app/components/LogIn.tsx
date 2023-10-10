@@ -16,36 +16,30 @@ export const LogIn = () => {
   return (
     <FormControl
       p='$4'
-      borderWidth='$1'
-      borderRadius='$lg'
-      borderColor='$borderLight300'
-      sx={{
-        _dark:{
-          borderWidth:'$1', borderRadius:'$lg', borderColor:'$borderDark800'
-        }
-      }}
+      width="80%"
     >
-      <VStack space='xl'>
-        <Heading color='$text900' lineHeight='$md'>
-          Login
-        </Heading>
-        <VStack space='xs'>
-          <Text color='$text500' lineHeight='$xs'>
+      <VStack space='xl' >
+        <VStack space='xs' >
+          <Text color='$textLight200' lineHeight='$xs'>
             Email
           </Text>
           <Input>
             <InputField
               type="text"
+              color="$textLight300"
+              placeholder='Enter your username...'
             />
           </Input>
         </VStack>
         <VStack space='xs'>
-          <Text color='$text500' lineHeight='$xs'>
+          <Text color='$textLight200' lineHeight='$xs'>
             Password
           </Text>
-          <Input textAlign='center'>
+          <Input>
             <InputField
+              color="$textLight300"
               type={showPassword ? 'text' : 'password'}
+              placeholder='Enter your password...'
             />
             <InputSlot pr='$3' onPress={handleState}>
               {/* EyeIcon, EyeOffIcon are both imported from 'lucide-react-native' */}
@@ -55,39 +49,13 @@ export const LogIn = () => {
         </VStack>
         <Button
           ml='auto'
-          onPress={()=>{
-            setShowModal(false);
-          }}
+        
         >
           <ButtonText color='$white'>
-            Save
+            Login
           </ButtonText>
         </Button>
       </VStack>
     </FormControl>
   );
-}
-
-
-
-// Styling
-const $mainContainer: ViewStyle = {
-  flex: 1,
-  justifyContent: "center",
-  backgroundColor: "#1D1D1D",
-  alignItems: "center",
-  gap: 50,
-  paddingBottom: 100,
-}
-
-const $inputContainer: ViewStyle = {
-  flex: 1,
-  gap: 15,
-  width: "90%"
-  
-}
-
-const $stinkBallLogo: ImageStyle = {
-  height: 247,
-  width: 309,
 }

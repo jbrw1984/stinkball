@@ -1,20 +1,36 @@
-import { observer } from "mobx-react-lite"
 import React, { FC } from "react"
 import { Image, ImageStyle, TextStyle, View, ViewStyle } from "react-native"
-import { isRTL } from "../i18n"
-import { AppStackScreenProps } from "../navigators"
-import { colors, spacing } from "../theme"
-import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
-import { Button, ButtonText } from '@gluestack-ui/themed';
 import { LogIn } from "../components/LogIn";
 
-const welcomeLogo = require("../../assets/images/logo.png")
-const welcomeFace = require("../../assets/images/welcome-face.png")
-
-interface WelcomeScreenProps extends AppStackScreenProps<"Welcome"> {}
+const stinkBallLogo = require("../../assets/images/MainStinkballLogo.png");
 
 export const WelcomeScreen = () => {
   return (
-      <LogIn/>
+    <View style={$mainContainer}>
+      <Image style={$stinkballLogo} source={stinkBallLogo} resizeMode="contain" />
+      <LogIn />
+    </View>
+      
   )
+}
+
+// Styling
+const $mainContainer: ViewStyle = {
+  backgroundColor: "#1D1D1D",
+  flex: 1,
+  gap: 15,
+  justifyContent: "center",
+  alignItems: "center",
+}
+
+const $inputContainer: ViewStyle = {
+  flex: 1,
+  gap: 15,
+  width: "90%"
+  
+}
+
+const $stinkballLogo: ImageStyle = {
+  height: 247,
+  width: 309,
 }
