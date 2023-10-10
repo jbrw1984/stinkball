@@ -13,14 +13,8 @@ const welcomeFace = require("../../assets/images/welcome-face.png")
 
 interface WelcomeScreenProps extends AppStackScreenProps<"Welcome"> {}
 
-export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeScreen(
-) {
-
-  const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"])
-
+export const WelcomeScreen = () => {
   return (
-    <View>
       <LogIn/>
-    </View>
   )
-})
+}
