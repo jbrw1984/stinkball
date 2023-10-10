@@ -1,25 +1,24 @@
 import React, { useState } from 'react';
-import { View, ViewStyle, Image, ImageStyle } from "react-native";
-import { Input, InputField, FormControl, VStack, Heading, Text, InputSlot, InputIcon, Button, ButtonText,  } from "@gluestack-ui/themed";
-const stinkBallLogo = require("../../assets/images/MainStinkballLogo.png");
+import { Input, InputField, FormControl, VStack, Text, InputSlot, InputIcon, Button, ButtonText } from "@gluestack-ui/themed";
 import { EyeIcon, EyeOffIcon } from 'lucide-react-native';
 
+interface LogInProps {
+  onPress: () => void;
+}
 
-
-export const LogIn = () => {
+export const LogIn: React.FC<LogInProps> = ({ onPress }) => {
   const [showPassword, setShowPassword] = useState(false);
+
   const handleState = () => {
     setShowPassword((showState) => {
       return !showState;
     });
   };
+
   return (
-    <FormControl
-      p='$4'
-      width="80%"
-    >
-      <VStack space='xl' >
-        <VStack space='xs' >
+    <FormControl p='$4' width="80%">
+      <VStack space='xl'>
+        <VStack space='xs'>
           <Text color='$textLight200' lineHeight='$xs'>
             Email
           </Text>
@@ -42,15 +41,11 @@ export const LogIn = () => {
               placeholder='Enter your password...'
             />
             <InputSlot pr='$3' onPress={handleState}>
-              {/* EyeIcon, EyeOffIcon are both imported from 'lucide-react-native' */}
-              <InputIcon as={showPassword ? EyeIcon : EyeOffIcon}  color='$darkBlue500'/>
+              <InputIcon as={showPassword ? EyeIcon : EyeOffIcon} color='$darkBlue500' />
             </InputSlot>
           </Input>
         </VStack>
-        <Button
-          ml='auto'
-        
-        >
+        <Button ml='auto'>
           <ButtonText color='$white'>
             Login
           </ButtonText>
@@ -58,4 +53,4 @@ export const LogIn = () => {
       </VStack>
     </FormControl>
   );
-}
+};
