@@ -4,6 +4,11 @@ import request from 'supertest';
 import { App } from '@/app';
 import { CreateUserDto } from '@dtos/users.dto';
 import { UserRoute } from '@routes/users.route';
+import exp from 'constants';
+
+// Global Variables
+const usersRoute = new UserRoute();
+const app = new App([usersRoute]);
 
 afterAll(async () => {
   await new Promise<void>(resolve => setTimeout(() => resolve(), 500));
@@ -12,12 +17,12 @@ afterAll(async () => {
 describe('Testing Users', () => {
   describe('[GET] /users', () => {
     it('response findAll users', async () => {
-      const usersRoute = new UserRoute();
+
       // const users = usersRoute.usersController.userService.users;
       const users = usersRoute.user.user;
 
-
-      users.findAllUser = jest.fn().mockReturnValue([
+      // Create mock data array of users first
+      const mockUsers = [
         {
           id: 1,
           email: 'a@email.com',
@@ -33,11 +38,27 @@ describe('Testing Users', () => {
           email: 'c@email.com',
           password: await bcrypt.hash('z1x2c3v4!', 10),
         },
-      ]);
+      ]
 
-      (Sequelize as any).authenticate = jest.fn();
-      const app = new App([usersRoute]);
-      return request(app.getServer()).get(`${usersRoute.path}`).expect(200);
+      // Mock the findAllUser method
+      users.findAllUser = jest.fn().mockReturnValue(mockUsers);
+      (Sequelize as any).authenticate = jest.fn(); 
+
+      // Call the API for a get request
+      const result = await request(app.getServer()).get(`${usersRoute.path}`); 
+      
+      expect(result.status).toEqual(200);
+      expect(result.body.data.length).toEqual(3);
+      expect(result.body.data[0].id).toEqual(mockUsers[0].id); 
+      expect(result.body.data[0].email).toEqual(mockUsers[0].email); 
+      expect(result.body.data[0].password).toEqual(mockUsers[0].password); 
+      expect(result.body.data[1].id).toEqual(mockUsers[1].id); 
+      expect(result.body.data[1].email).toEqual(mockUsers[1].email); 
+      expect(result.body.data[1].password).toEqual(mockUsers[1].password); 
+      expect(result.body.data[2].id).toEqual(mockUsers[2].id); 
+      expect(result.body.data[2].email).toEqual(mockUsers[2].email); 
+      expect(result.body.data[2].password).toEqual(mockUsers[2].password); 
+
     });
   });
 
