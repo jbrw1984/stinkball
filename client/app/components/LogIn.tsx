@@ -11,12 +11,14 @@ export const LogIn: React.FC<LogInProps> = ({ onPress }) => {
   const [signUp, setSignUp] = useState<boolean>(false);
 
   const handleState = () => {
+    // When user changes from viewing password to displaying password flip showState
     setShowPassword((showState) => {
       return !showState;
     });
   };
 
   const handleType = () => {
+    // When user changes from login to signup screen flip typeState
     setSignUp((typeState) => {
       return !typeState;
     });
@@ -27,10 +29,11 @@ export const LogIn: React.FC<LogInProps> = ({ onPress }) => {
       <VStack space='xl'>
         <VStack space='xs'>
           <Text color='$textLight200' lineHeight='$xs'>
-            Email
+            Username
           </Text>
           <Input>
             <InputField
+              color="$white"
               type="text"
               placeholder='Enter your username...'
             />
@@ -42,6 +45,7 @@ export const LogIn: React.FC<LogInProps> = ({ onPress }) => {
           </Text>
           <Input>
             <InputField
+              color='$white'
               type={showPassword ? 'text' : 'password'}
               placeholder='Enter your password...'
             />
@@ -53,7 +57,7 @@ export const LogIn: React.FC<LogInProps> = ({ onPress }) => {
             {signUp ? "Or Log In?" : "Or Create Account?"}
           </Text>
         </VStack>
-        <Button action="primary">
+        <Button action="primary" >
           <ButtonText color='$white'>
             {signUp ? "Sign Up" : "Log In"}
           </ButtonText>
