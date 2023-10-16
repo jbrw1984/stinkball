@@ -19,6 +19,9 @@ export const customFontsToLoad = {
 }
 
 const fonts = {
+  poppins: {
+    
+  },
   spaceGrotesk: {
     // Cross-platform Google font.
     light: "spaceGroteskLight",
