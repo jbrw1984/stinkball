@@ -9,7 +9,7 @@
     "orientation": "portrait",
     "icon": "./assets/images/app-icon-all.png",
     "splash": {
-      "image": "./assets/images/splash-logo-all.png",
+      "image": "./assets/images/TransparentStinkballLogo.png",
       "resizeMode": "contain",
       "backgroundColor": "#191015"
     },
@@ -28,7 +28,7 @@
         "backgroundImage": "./assets/images/app-icon-android-adaptive-background.png"
       },
       "splash": {
-        "image": "./assets/images/splash-logo-android-universal.png",
+        "image": "./assets/images/TransparentStinkballLogo.png",
         "resizeMode": "contain",
         "backgroundColor": "#191015"
       }
@@ -38,8 +38,8 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.projectrookie.stinkball",
       "splash": {
-        "image": "./assets/images/splash-logo-ios-mobile.png",
-        "tabletImage": "./assets/images/splash-logo-ios-tablet.png",
+        "image": "./assets/images/TransparentStinkballLogo.png",
+        "tabletImage": "./assets/images/TransparentStinkballLogo.png",
         "resizeMode": "contain",
         "backgroundColor": "#191015"
       }
@@ -47,7 +47,7 @@
     "web": {
       "favicon": "./assets/images/app-icon-web-favicon.png",
       "splash": {
-        "image": "./assets/images/splash-logo-web.png",
+        "image": "./assets/images/TransparentStinkballLogo.png",
         "resizeMode": "contain",
         "backgroundColor": "#191015"
       },
