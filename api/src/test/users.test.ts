@@ -62,6 +62,33 @@ describe('Testing Users', () => {
     });
   });
 
+  describe('[GET] /users/:id', () => {
+    it('response findOne user', async () => {
+      const users = usersRoute.user.user;
+
+      // Mock the user data for a specific user
+      const userId = 1;
+      const mockUser = {
+        id: userId,
+        email: 'a@email.com',
+        password: await bcrypt.hash('q1w2e3r4!', 10),
+      };
+
+      // Mock the findUserById method to return the specific user
+      users.findUserById = jest.fn().mockReturnValue(mockUser);
+
+      (Sequelize as any).authenticate = jest.fn();
+
+      const app = new App([usersRoute]);
+      const result = await request(app.getServer()).get(`${usersRoute.path}/${userId}`);
+
+      // Perform assertions
+      expect(result.status).toEqual(200);
+      expect(result.body.data.id).toEqual(mockUser.id);
+      expect(result.body.data.email).toEqual(mockUser.email);
+      expect(result.body.data.password).toEqual(mockUser.password);
+    });
+
   // describe('[GET] /users/:id', () => {
   //   it('response findOne user', async () => {
   //     const userId = 1;
