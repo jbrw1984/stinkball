@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import { Sequelize } from 'sequelize';
 import request from 'supertest';
 import { App } from '@/app';
-import { CreateUserDto } from '@dtos/users.dto';
+import { CreateUserDto, UpdateUserDto } from '@dtos/users.dto';
 import { UserRoute } from '@routes/users.route';
 import exp from 'constants';
 import { HttpException } from '@/exceptions/httpException';
@@ -239,4 +239,31 @@ describe('Testing Users', () => {
     });
 
   });
+
+  describe('[PUT] /users/:id', () => {
+    it('response Update user password', async () => {
+      // Create mock user data
+      const userData: UpdateUserDto = {
+        password: 'new_password',
+      };
+  
+      const hashedPassword = await bcrypt.hash(userData.password, 10); 
+  
+      // Mock the `updateUser` method in the service
+      users.updateUser = jest.fn().mockReturnValue({
+        id: 1,
+        password: hashedPassword,
+      }); 
+  
+      (Sequelize as any).authenticate = jest.fn();
+      
+      const result = await request(app.getServer())
+        .put(`${usersRoute.path}/1`)
+        .send(userData); 
+  
+      expect(result.status).toEqual(200);
+      expect(result.body.data.password).toEqual(hashedPassword); 
+    });
+  });
+
 });
