@@ -8,8 +8,8 @@ export class NFLTeamModel extends Model<NFLTeam, NFLTeamCreationAttributes> impl
   public id: number; 
   public team_name_short: string; 
   public team_name_long: string; 
-  public team_city_long: string; 
   public team_city_short: string; 
+  public team_city_long: string; 
   public team_logo: string; 
 
 }
