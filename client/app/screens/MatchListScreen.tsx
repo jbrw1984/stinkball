@@ -1,11 +1,11 @@
 import React from "react";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 
 
 export const MatchListScreen = () => {
   return (
     <View>
-      Match List
+      <Text>Match List Page</Text>
     </View>
   );
 }

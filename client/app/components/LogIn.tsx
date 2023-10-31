@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Input, InputField, FormControl, VStack, Text, InputSlot, InputIcon, Button, ButtonText } from "@gluestack-ui/themed";
 import { EyeIcon, EyeOffIcon } from 'lucide-react-native';
+import { useNavigation } from '@react-navigation/native';
 
 interface LogInProps {
   onPress: () => void;
+  navigation: any;
 }
 
-export const LogIn: React.FC<LogInProps> = ({ onPress }) => {
+export const LogIn: React.FC<LogInProps> = ({ onPress, navigation }) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [signUp, setSignUp] = useState<boolean>(false);
 
@@ -57,7 +59,7 @@ export const LogIn: React.FC<LogInProps> = ({ onPress }) => {
             {signUp ? "Or Log In?" : "Or Create Account?"}
           </Text>
         </VStack>
-        <Button action="primary" >
+        <Button action="primary" onPress={() => navigation.navigate('MatchList')}>
           <ButtonText color='$white'>
             {signUp ? "Sign Up" : "Log In"}
           </ButtonText>
