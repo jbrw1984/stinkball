@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Input, InputField, FormControl, VStack, Text, InputSlot, InputIcon, Button, ButtonText } from "@gluestack-ui/themed";
 import { EyeIcon, EyeOffIcon } from 'lucide-react-native';
-import { useNavigation } from '@react-navigation/native';
 
 interface LogInProps {
   onPress: () => void;
+
+  // Fix typing later.
   navigation: any;
 }
 
@@ -59,6 +60,7 @@ export const LogIn: React.FC<LogInProps> = ({ onPress, navigation }) => {
             {signUp ? "Or Log In?" : "Or Create Account?"}
           </Text>
         </VStack>
+        {/* When user logs in or signs up send them to MatchList screen (we will add validation later) */}
         <Button action="primary" onPress={() => navigation.navigate('MatchList')}>
           <ButtonText color='$white'>
             {signUp ? "Sign Up" : "Log In"}

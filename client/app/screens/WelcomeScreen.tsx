@@ -7,6 +7,7 @@ const stinkBallLogo = require("../../assets/images/MainStinkballLogo.png");
 export const WelcomeScreen = () => {
   const scrollViewRef = useRef<ScrollView>(null);
 
+  // Create instance of useNavigation in order to pass to LogIn component.
   const navigation = useNavigation();
 
   const handleScrollToInput = () => {
