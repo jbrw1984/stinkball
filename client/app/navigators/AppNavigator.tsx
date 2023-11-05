@@ -55,10 +55,12 @@ const Stack = createNativeStackNavigator<AppStackParamList>()
 const AppStack = observer(function AppStack() {
   return (
     <Stack.Navigator
+      initialRouteName="Welcome"
       screenOptions={{ headerShown: false, navigationBarColor: colors.background }}
     >
-          <Stack.Screen name="Welcome" component={Screens.WelcomeScreen} />
           <Stack.Screen name="MatchList" component={Screens.MatchListScreen} />
+          <Stack.Screen name="Welcome" component={Screens.WelcomeScreen} />
+          
       {/** 🔥 Your screens go here */}
       {/* IGNITE_GENERATOR_ANCHOR_APP_STACK_SCREENS */}
     </Stack.Navigator>

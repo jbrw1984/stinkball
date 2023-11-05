@@ -6,9 +6,10 @@ import { customFontsToLoad, typography } from "app/theme";
 
 interface PaginateWeekProps {
   weeks: number[];
+  onWeekChange: (week: number) => void;
 }
 
-export const PaginateWeek: React.FC<PaginateWeekProps> = ({ weeks }) => {
+export const PaginateWeek: React.FC<PaginateWeekProps> = ({ weeks, onWeekChange }) => {
   // Note we will set default to current NFL week once linked up. For now just default to 1.
   const [week, setWeek] = useState<number>(1);
   // Initalize by checking if week is the first week.
@@ -30,7 +31,10 @@ export const PaginateWeek: React.FC<PaginateWeekProps> = ({ weeks }) => {
   useEffect(() => {
     setPrevIsDisabled(week === weeks[0]);
     setNextIsDisabled(week === weeks[weeks.length - 1]);
-  }, [week]);
+
+    // Invoke the callback to pass the current week to the parent component
+    onWeekChange(week);
+  }, [week, onWeekChange]);
 
   return (
     <View style={$mainContainer}>
@@ -51,7 +55,7 @@ export const PaginateWeek: React.FC<PaginateWeekProps> = ({ weeks }) => {
 
 // Styling
 const $mainContainer: ViewStyle = {
-  padding: 100,
+  padding: 10,
   flexDirection: "row",
 }
 
