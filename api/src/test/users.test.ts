@@ -6,6 +6,7 @@ import { CreateUserDto, UpdateUserDto } from '@dtos/users.dto';
 import { UserRoute } from '@routes/users.route';
 import exp from 'constants';
 import { HttpException } from '@/exceptions/httpException';
+import { DB } from '@database';
 
 // Global Variables
 const usersRoute = new UserRoute();
@@ -31,10 +32,17 @@ describe('Testing Users', () => {
       const hashedPassword = await bcrypt.hash(userData.password, 10); 
 
       // Not sure how to mock the `findOne` and `create` methods in the service
-      users.createUser = jest.fn().mockReturnValue({
-        id: 1,
-        email: userData.email,
-        password: hashedPassword,
+      // users.createUser = jest.fn().mockReturnValue({
+      //   id: 1,
+      //   email: userData.email,
+      //   password: hashedPassword,
+      // }); 
+
+      DB.Users.findOne = jest.fn().mockReturnValue(undefined); 
+      DB.Users.create = jest.fn().mockReturnValue({
+        id: 1, 
+        email: userData.email, 
+        password: hashedPassword
       }); 
 
       (Sequelize as any).authenticate = jest.fn();
@@ -55,9 +63,15 @@ describe('Testing Users', () => {
         password: 'q1w2e3r4!',
       };
     
-      users.createUser = jest.fn().mockRejectedValue(
-        new HttpException(409, `This email ${userData.email} already exists`) 
-      ); 
+      const hashedPassword = await bcrypt.hash(userData.password, 10); 
+      // users.createUser = jest.fn().mockRejectedValue(
+      //   new HttpException(409, `This email ${userData.email} already exists`) 
+      // ); 
+      DB.Users.findOne = jest.fn().mockReturnValue({
+        id: 1, 
+        email: userData.email, 
+        password: hashedPassword
+      }); 
 
       (Sequelize as any).authenticate = jest.fn();
       
@@ -73,7 +87,6 @@ describe('Testing Users', () => {
   describe('[GET] /users', () => {
     it('response findAll users', async () => {
 
-      // const users = usersRoute.usersController.userService.users;
       // Create mock data array of users first
       const mockUsers = [
         {
@@ -93,8 +106,10 @@ describe('Testing Users', () => {
         },
       ]
 
+      
+      DB.Users.findAll = jest.fn().mockReturnValue(mockUsers);
       // Mock the findAllUser method
-      users.findAllUser = jest.fn().mockReturnValue(mockUsers);
+      // users.findAllUser = jest.fn().mockReturnValue(mockUsers);
       (Sequelize as any).authenticate = jest.fn(); 
 
       // Call the API for a get request
@@ -148,7 +163,7 @@ describe('Testing Users', () => {
       const userId = 1;
 
       const mockUser = {
-        id: userId,
+        id: 1,
         email: 'a@email.com',
         password: await bcrypt.hash('q1w2e3r4!', 10),
       }
@@ -156,10 +171,18 @@ describe('Testing Users', () => {
       // Not sure how to mock the `findByPk` method in the service
       users.deleteUser = jest.fn().mockReturnValue(mockUser);
 
+      // DB.Users.findByPk = jest.fn().mockResolvedValue({
+      //   id: 1,
+      //   email: 'a@email.com',
+      //   password: await bcrypt.hash('q1w2e3r4!', 10)
+      // })
+
       (Sequelize as any).authenticate = jest.fn(); 
       
       const result = await request(app.getServer())
         .delete(`${usersRoute.path}/${userId}`)
+
+      // console.log(DB.Users.findByPk.mock.calls.length);
 
       expect(result.status).toEqual(200);
       expect(result.body.data.id).toEqual(mockUser.id);
