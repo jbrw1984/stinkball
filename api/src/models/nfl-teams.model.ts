@@ -1,5 +1,5 @@
 import { Sequelize, DataTypes, Model, Optional } from 'sequelize';
-import { NFLTeam } from '@interfaces/nfl-team.interface';
+import { NFLTeam } from '@/interfaces/nfl-teams.interface';
 
 export type NFLTeamCreationAttributes = Optional<NFLTeam, 'id' | 'team_name_short' 
   | 'team_name_long' | 'team_city_long' | 'team_city_short' | 'team_logo'>;
@@ -12,6 +12,8 @@ export class NFLTeamModel extends Model<NFLTeam, NFLTeamCreationAttributes> impl
   public team_city_long: string; 
   public team_logo: string; 
 
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
 }
   
 export default function (sequelize: Sequelize): typeof NFLTeamModel {
@@ -25,7 +27,7 @@ export default function (sequelize: Sequelize): typeof NFLTeamModel {
       team_name_short: {
         allowNull: false,
         unique: 'teamNameUnique', 
-        type: DataTypes.STRING(5)
+        type: DataTypes.STRING(15)
       }, 
       team_name_long: {
         allowNull: false,
@@ -52,8 +54,8 @@ export default function (sequelize: Sequelize): typeof NFLTeamModel {
     {
       tableName: 'NFLTeams', 
       sequelize
-    }
-  )
+    },
+  );
 
   return NFLTeamModel;
 }
