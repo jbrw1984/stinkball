@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from 'express';
 import { Container } from 'typedi';
 import { CreateNFLTeamDto } from '@dtos/nfl-teams.dto';
 import { NFLTeam } from '@interfaces/nfl-teams.interface';
-// import { NFLTeamService } from '@services/nfl-teams.service';
 import { NFLTeamService } from '@services/nfl-teams.service';
 
 
@@ -18,5 +17,17 @@ export class NFLTeamController {
       next(error);
     }
   };
+
+  public getNFLTeamById = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const nflTeamId = Number(req.params.id);
+      const findOneNFLTeamData: NFLTeam = await this.nflteam.findNFLTeamById(nflTeamId);
+
+      res.status(200).json({ data: findOneNFLTeamData, message: 'findOne' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
 
 }

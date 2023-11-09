@@ -11,4 +11,12 @@ export class NFLTeamService {
     const allNFLTeam: NFLTeam[] = await DB.NFLTeams.findAll();
     return allNFLTeam;
   }
+
+  public async findNFLTeamById(nflTeamId: number): Promise<NFLTeam> {
+    const findNFLTeam: NFLTeam = await DB.NFLTeams.findByPk(nflTeamId);
+    if (!findNFLTeam) throw new HttpException(409, "NFL Team doesn't exist");
+
+    return findNFLTeam;
+  }
+
 }

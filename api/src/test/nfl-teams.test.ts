@@ -13,6 +13,7 @@ import { DB } from '@database';
 const nflTeamsRoute = new NFLTeamRoute();
 const app = new App([nflTeamsRoute]);
 const nflteams = nflTeamsRoute.nflteam.nflteam;
+const mockNFLTeamsList : NFLTeam[] = mockNFLTeams; 
 
 
 afterAll(async () => {
@@ -23,7 +24,6 @@ describe('Testing NFL Teams', () => {
 
   describe('[GET] /nfl-teams', () => {
     it('response findAll nfl-teams', async () => {
-      const mockNFLTeamsList : NFLTeam[] = mockNFLTeams; 
       
       DB.NFLTeams.findAll = jest.fn().mockReturnValue(mockNFLTeamsList);
       (Sequelize as any).authenticate = jest.fn(); 
@@ -47,6 +47,55 @@ describe('Testing NFL Teams', () => {
       expect(result.body.data).toContainEqual(mockNFLTeams[31]);
     });
   });
+
+  describe('[GET] /nfl-teams:id', () => {
+    it('response findOne nfl-team', async () => {
+
+      const mockNFLTeam : NFLTeam = {
+        id: 18,
+        team_name_short: 'Vikings',
+        team_name_long: 'Minnesota Vikings',
+        team_city_short: 'MIN',
+        team_city_long: 'Minnesota',
+        team_logo: 'image.png'
+      } ;
+      
+      DB.NFLTeams.findByPk = jest.fn().mockResolvedValue(mockNFLTeam);
+      (Sequelize as any).authenticate = jest.fn(); 
+
+      const result = await request(app.getServer()).get(`${nflTeamsRoute.path}/${mockNFLTeam.id}`); 
+      
+      expect(result.status).toEqual(200);
+      expect(result.body.data.id).toEqual(mockNFLTeam.id);
+      expect(result.body.data.team_name_short).toEqual(mockNFLTeam.team_name_short);
+      expect(result.body.data.team_name_long).toEqual(mockNFLTeam.team_name_long);
+      expect(result.body.data.team_city_short).toEqual(mockNFLTeam.team_city_short);
+      expect(result.body.data.team_city_long).toEqual(mockNFLTeam.team_city_long);
+      expect(result.body.data.team_logo).toEqual(mockNFLTeam.team_logo);
+    });
+
+    it('response findOne nfl-team - exception', async () => {
+
+      const mockNFLTeam : NFLTeam = {
+        id: 18,
+        team_name_short: 'Vikings',
+        team_name_long: 'Minnesota Vikings',
+        team_city_short: 'MIN',
+        team_city_long: 'Minnesota',
+        team_logo: 'image.png'
+      };
+      
+      DB.NFLTeams.findByPk = jest.fn().mockResolvedValue(undefined);
+      (Sequelize as any).authenticate = jest.fn(); 
+
+      const result = await request(app.getServer()).get(`${nflTeamsRoute.path}/${mockNFLTeam.id}`); 
+      
+      expect(result.status).toEqual(409);
+      expect(result.body.message).toEqual("NFL Team doesn't exist");
+    });
+
+  });
+
 
 
 });
