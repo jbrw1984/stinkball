@@ -1,7 +1,9 @@
 import { NFLTeam } from "@/interfaces/nfl-teams.interface";
 
 /**
- * 1,Arizona Cardinals,ARI,NFC,West
+ * https://gist.github.com/cnizzardini/13d0a072adb35a0d5817
+ * 
+1,Arizona Cardinals,ARI,NFC,West
 2,Atlanta Falcons,ATL,NFC,South
 3,Baltimore Ravens,BAL,AFC,North
 4,Buffalo Bills,BUF,AFC,East
@@ -33,7 +35,7 @@ import { NFLTeam } from "@/interfaces/nfl-teams.interface";
 30,Tampa Bay Buccaneers,TB,NFC,South
 31,Tennessee Titans,TEN,AFC,South
 32,Washington Commanders,WAS,NFC,East
-       */
+*/
 export const mockNFLTeams : NFLTeam[] = [
   {
     id: 1, 

@@ -38,6 +38,13 @@ describe('Testing NFL Teams', () => {
       expect(result.body.data[0].team_city_short).toEqual(mockNFLTeams[0].team_city_short);
       expect(result.body.data[0].team_city_long).toEqual(mockNFLTeams[0].team_city_long);
       expect(result.body.data[0].team_logo).toEqual(mockNFLTeams[0].team_logo);
+      expect(result.body.data).toContainEqual(mockNFLTeams[5]);
+      expect(result.body.data).toContainEqual(mockNFLTeams[10]);
+      expect(result.body.data).toContainEqual(mockNFLTeams[15]);
+      expect(result.body.data).toContainEqual(mockNFLTeams[20]);
+      expect(result.body.data).toContainEqual(mockNFLTeams[25]);
+      expect(result.body.data).toContainEqual(mockNFLTeams[30]);
+      expect(result.body.data).toContainEqual(mockNFLTeams[31]);
     });
   });
 
