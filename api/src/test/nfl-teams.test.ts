@@ -77,11 +77,11 @@ describe('Testing NFL Teams', () => {
     it('response findOne nfl-team - exception', async () => {
 
       const mockNFLTeam : NFLTeam = {
-        id: 18,
-        team_name_short: 'Vikings',
-        team_name_long: 'Minnesota Vikings',
-        team_city_short: 'MIN',
-        team_city_long: 'Minnesota',
+        id: 44,
+        team_name_short: 'Football Team',
+        team_name_long: 'Duluth Football Team',
+        team_city_short: 'DUL',
+        team_city_long: 'Duluth',
         team_logo: 'image.png'
       };
       

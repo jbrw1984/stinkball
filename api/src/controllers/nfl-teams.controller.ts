@@ -8,7 +8,7 @@ import { NFLTeamService } from '@services/nfl-teams.service';
 export class NFLTeamController {
   public nflteam = Container.get(NFLTeamService);
 
-  public getNFLTeams = async (req: Request, res: Response, next: NextFunction) => {
+  public getNFLTeams = async (req: Request, res: Response, next: NextFunction) : Promise<void> => {
     try {
       const findAllNFLTeamsData: NFLTeam[] = await this.nflteam.findAllNFLTeam();
 
@@ -18,7 +18,7 @@ export class NFLTeamController {
     }
   };
 
-  public getNFLTeamById = async (req: Request, res: Response, next: NextFunction) => {
+  public getNFLTeamById = async (req: Request, res: Response, next: NextFunction) : Promise<void> => {
     try {
       const nflTeamId = Number(req.params.id);
       const findOneNFLTeamData: NFLTeam = await this.nflteam.findNFLTeamById(nflTeamId);

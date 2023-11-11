@@ -31,7 +31,6 @@ sequelize.authenticate();
 
 export const DB = {
   Users: UserModel(sequelize),
-  // Why does this need the 'new' keyword?
   NFLTeams: NFLTeamModel(sequelize),
   sequelize, // connection instance (RAW queries)
   Sequelize, // library

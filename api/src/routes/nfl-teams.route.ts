@@ -16,10 +16,5 @@ export class NFLTeamRoute implements Routes {
   private initializeRoutes() {
     this.router.get(`${this.path}`, this.nflteam.getNFLTeams);
     this.router.get(`${this.path}/:id(\\d+)`, this.nflteam.getNFLTeamById);
-    // this.router.post(`${this.path}`, ValidationMiddleware(CreateUserDto, 'body'), this.user.createUser);
-    // this.router.put(`${this.path}/:id(\\d+)`, ValidationMiddleware(CreateUserDto, 'body', true), this.user.updateUser);
-    // this.router.post(`${this.path}`, ValidationMiddleware(CreateUserDto), this.user.createUser);
-    // this.router.put(`${this.path}/:id(\\d+)`, ValidationMiddleware(UpdateUserDto, true), this.user.updateUser);
-    // this.router.delete(`${this.path}/:id(\\d+)`, this.user.deleteUser);
   }
 }
