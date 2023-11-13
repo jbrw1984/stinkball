@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { View, Text, ViewStyle, TextStyle } from "react-native";
 import { Button, Icon } from "@gluestack-ui/themed";
 import {  LucideChevronLeft, LucideChevronRight} from 'lucide-react-native';
-import { customFontsToLoad, typography } from "app/theme";
+import { typography } from "app/theme";
 
 interface PaginateWeekProps {
   weeks: number[];
@@ -62,5 +62,6 @@ const $mainContainer: ViewStyle = {
 const $weekStyle: TextStyle = {
   alignSelf: "center",
   color: "white",
+  fontFamily: typography.fonts.poppins.medium,
   fontSize: 24,
 }

@@ -1,5 +1,6 @@
 import { Pressable, Image, View, Text, ViewStyle, TextStyle, ImageStyle } from "react-native";
 import { MatchScorePreviewType } from "./MatchScorePreviewTempData/MatchScorePreviewData";
+import { typography } from "app/theme";
 
 // Mock interface this way we save time when linking up client and api.
 interface MatchScorePreviewProps {
@@ -36,7 +37,7 @@ const $mainContainer: ViewStyle = {
   width: 330,
   maxHeight: 120,
   backgroundColor: "#1D1D1D",
-  borderRadius: 10,
+  borderRadius: 20,
   flex: 1,
   flexDirection: "row",
   justifyContent: "space-around",
@@ -47,24 +48,25 @@ const $mainContainer: ViewStyle = {
 const $detailsContainer: ViewStyle = {
   minWidth: 85, 
   maxWidth: 85, 
-  gap: 23,
+  gap: 20,
 }
 
 const $teamNameTextStyle: TextStyle = {
   color: "#E9E9E9", 
   fontSize: 12, 
-  fontWeight: "600",
+  fontFamily: typography.fonts.poppins.semiBold,
 }
 
 const $scoreTextStyle: TextStyle = {
   color: "white", 
   fontSize: 18, 
-  fontWeight: "800",
+  fontFamily: typography.fonts.poppins.bold,
 }
 
 const $usernameTextStyle: TextStyle = {
   color: "#E2E2E2", 
-  fontSize: 10,
+  fontSize: 12,
+  fontFamily: typography.fonts.poppins.normal,
 }
 
 const $teamLogo: ImageStyle = {
@@ -86,7 +88,7 @@ const $vsContainer: ViewStyle = {
 
 const $vsTextStyle: TextStyle = {
   color: "#745EFF",
-  fontWeight: "bold",
+  fontFamily: typography.fonts.poppins.bold,
   fontSize: 20,
   alignSelf: "center",
 }

@@ -3,6 +3,7 @@ import { PaginateWeek } from "app/components/PaginateWeek";
 import React, { useState, useEffect } from "react";
 import { ScrollView, Text, ViewStyle, View, TextStyle } from "react-native";
 import { MatchScorePreviewType, MatchScorePreviewData } from "app/components/MatchScorePreviewTempData/MatchScorePreviewData";
+import { typography } from "app/theme";
 
 const weeks: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
 
@@ -55,6 +56,6 @@ const $mainContainer: ViewStyle = {
 const $title: TextStyle = {
   color: "white",
   fontSize: 24,
-  fontWeight: "bold",
+  fontFamily: typography.fonts.poppins.semiBold,
   alignSelf: "center"
 }
