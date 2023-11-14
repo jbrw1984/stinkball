@@ -22,17 +22,19 @@ Database will store user information, NFL players, fantasy teams, and Stinkball 
 **NFL Player Model**
 ```
 {
-    "id": "string",
+    "id": "number",
     "player_name": "string",
-    "teamId": "string",
+    "teamId": "number",
     "position": "string",
+    "player_portrait": "string",
 }
 ```
 
-- `id: string` - unique id for player
+- `id: number` - unique id for player
 - `player_name: string` - name of player
-- `teamId: string` - foreign key to nfl team id (one of 32 unique team IDs)
+- `teamId: number` - foreign key to nfl team id (one of 32 unique team IDs)
 - `position: string` - position of player
+- `player_portrait: string` - portrait of player
 
 **Weekly Points Model**
 ```
