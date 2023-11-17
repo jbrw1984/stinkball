@@ -13,6 +13,10 @@ interface LogInProps {
 export const LogIn: React.FC<LogInProps> = ({ onPress, navigation }) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [signUp, setSignUp] = useState<boolean>(false);
+  // State variables for disabling login button.
+  const [disableButton, setDisableButton] = useState<boolean>(true);
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   const handleState = () => {
     // When user changes from viewing password to displaying password flip showState
@@ -28,6 +32,20 @@ export const LogIn: React.FC<LogInProps> = ({ onPress, navigation }) => {
     });
   }
 
+  const handleUsername = (text: string): void => {
+    setUsername(text);
+    checkIsDisabled(text, password);
+  }
+
+  const handlePassword = (text: string): void => {
+    setPassword(text);
+    checkIsDisabled(username, text);
+  }
+
+  const checkIsDisabled = (newUsername: string, newPassword: string): void => {
+    setDisableButton(!newUsername || !newPassword);
+  }
+
   return (
     <FormControl p='$4' width="80%">
       <VStack space='xl'>
@@ -35,8 +53,10 @@ export const LogIn: React.FC<LogInProps> = ({ onPress, navigation }) => {
           <Text color='$textLight200' lineHeight='$xs' fontFamily={typography.fonts.poppins.normal}>
             Username
           </Text>
-          <Input isRequired={true}>
+          <Input>
             <InputField
+              id={"username-field"}
+              onChangeText={handleUsername}
               fontFamily={typography.fonts.poppins.light}
               color="$white"
               type="text"
@@ -48,8 +68,10 @@ export const LogIn: React.FC<LogInProps> = ({ onPress, navigation }) => {
           <Text color='$textLight200' lineHeight='$xs' fontFamily={typography.fonts.poppins.normal}>
             Password
           </Text>
-          <Input isRequired={true}>
+          <Input>
             <InputField
+              id={"password-field"}
+              onChangeText={handlePassword}
               fontFamily={typography.fonts.poppins.light}
               color='$white'
               type={showPassword ? 'text' : 'password'}
@@ -70,7 +92,7 @@ export const LogIn: React.FC<LogInProps> = ({ onPress, navigation }) => {
           </Text>
         </VStack>
         {/* When user logs in or signs up send them to MatchList screen (we will add validation later) */}
-        <Button action="primary" onPress={() => navigation.navigate('MatchList')}>
+        <Button action="primary" onPress={() => navigation.navigate('MatchList')} isDisabled={disableButton}>
           <ButtonText color='$white' fontFamily={typography.fonts.poppins.semiBold}>
             {signUp ? "Sign Up" : "Log In"}
           </ButtonText>
