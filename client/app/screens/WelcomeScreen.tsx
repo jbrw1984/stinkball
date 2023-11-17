@@ -1,10 +1,14 @@
 import React, { useRef } from "react";
 import { Image, ImageStyle, ViewStyle, ScrollView, KeyboardAvoidingView, Platform } from "react-native";
 import { LogIn } from "../components/LogIn";
+import { useNavigation } from "@react-navigation/native";
 const stinkBallLogo = require("../../assets/images/MainStinkballLogo.png");
 
 export const WelcomeScreen = () => {
   const scrollViewRef = useRef<ScrollView>(null);
+
+  // Create instance of useNavigation in order to pass to LogIn component.
+  const navigation = useNavigation();
 
   const handleScrollToInput = () => {
     scrollViewRef.current?.scrollTo({ y: 200, animated: true }); // Adjust the y value based on your layout
@@ -20,7 +24,7 @@ export const WelcomeScreen = () => {
         keyboardShouldPersistTaps="handled"
       >
         <Image style={$stinkballLogo} source={stinkBallLogo} resizeMode="contain" />
-        <LogIn onPress={handleScrollToInput}/>
+        <LogIn onPress={handleScrollToInput} navigation={navigation}/>
       </ScrollView>
     </KeyboardAvoidingView>
   );
