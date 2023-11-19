@@ -33,6 +33,7 @@ import { colors } from "app/theme"
  *   https://reactnavigation.org/docs/typescript/#organizing-types
  */
 export type AppStackParamList = {
+  DebugMenu: undefined
   Welcome: undefined
   MatchList: undefined
   // 🔥 Your screens go here
@@ -56,16 +57,25 @@ const Stack = createNativeStackNavigator<AppStackParamList>()
 const AppStack = observer(function AppStack() {
   const navigation = useNavigation();
 
+  // React.useEffect(() => {
+  //   // Navigate to the "Welcome" screen when the component mounts
+  //   navigation.navigate('Welcome')
+  // }, [navigation])
+
   React.useEffect(() => {
     // Navigate to the "Welcome" screen when the component mounts
-    navigation.navigate('Welcome')
+    navigation.navigate('DebugMenu')
   }, [navigation])
+
 
   return (
     <Stack.Navigator
-      initialRouteName="Welcome"
+      // initialRouteName="Welcome"
+      initialRouteName="DebugMenu"
+
       screenOptions={{ headerShown: false, navigationBarColor: colors.background }}
     >
+        <Stack.Screen name="DebugMenu" component={Screens.DebugMenu} />
         <Stack.Screen name="Welcome" component={Screens.WelcomeScreen} />
         <Stack.Screen name="MatchList" component={Screens.MatchListScreen} />
           
