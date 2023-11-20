@@ -25,6 +25,7 @@ export default function (sequelize: Sequelize): typeof NFLPLayerModel {
       }, 
       player_name: {
         allowNull: false,
+        unique: 'uniquePlayer', 
         type: DataTypes.STRING(40)
       }, 
       teamId: {
@@ -37,7 +38,7 @@ export default function (sequelize: Sequelize): typeof NFLPLayerModel {
       },
       player_portrait: {
         allowNull: false,
-        unique: 'playerPortraitUnique', 
+        unique: 'uniquePlayer', 
         type: DataTypes.STRING
       }
     }, 
