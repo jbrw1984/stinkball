@@ -12,12 +12,13 @@ import {
 } from "@react-navigation/native"
 import { createNativeStackNavigator, NativeStackScreenProps } from "@react-navigation/native-stack"
 import { observer } from "mobx-react-lite"
-import React from "react"
+import React, { useEffect } from "react"
 import { useColorScheme } from "react-native"
 import * as Screens from "app/screens"
 import Config from "../config"
-import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
+import { navigate, navigationRef, useBackButtonHandler } from "./navigationUtilities"
 import { colors } from "app/theme"
+// import { registerDevMenuItems } from 'expo-dev-menu';
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -33,7 +34,7 @@ import { colors } from "app/theme"
  *   https://reactnavigation.org/docs/typescript/#organizing-types
  */
 export type AppStackParamList = {
-  DebugMenu: undefined
+  DeveloperMenu: undefined
   Welcome: undefined
   MatchList: undefined
   // 🔥 Your screens go here
@@ -57,25 +58,49 @@ const Stack = createNativeStackNavigator<AppStackParamList>()
 const AppStack = observer(function AppStack() {
   const navigation = useNavigation();
 
-  // React.useEffect(() => {
+  // const navigateToDevScreen = () => {
+  //   navigation.navigate('DeveloperMenu'); 
+  // }
+
+  // useEffect(() => {
+  //   registerDevMenuItems([
+  //     {
+  //       name: 'Developer Menu',
+  //       callback: navigateToDevScreen,
+  //     },
+  //   ])
+  // }, [])
+
+  // useEffect(() => {
+  //   registerDevMenuItems([
+  //     {
+  //       name: 'My Custom Button',
+  //       callback: () => console.log('Hello world!'),
+  //     },
+  //   ])
+  // }, [])
+
+
+  // useEffect(() => {
   //   // Navigate to the "Welcome" screen when the component mounts
   //   navigation.navigate('Welcome')
+
   // }, [navigation])
 
   React.useEffect(() => {
     // Navigate to the "Welcome" screen when the component mounts
-    navigation.navigate('DebugMenu')
+    navigation.navigate('DeveloperMenu')
   }, [navigation])
 
 
   return (
     <Stack.Navigator
-      // initialRouteName="Welcome"
-      initialRouteName="DebugMenu"
+      initialRouteName="Welcome"
+      // initialRouteName="DebugMenu"
 
       screenOptions={{ headerShown: false, navigationBarColor: colors.background }}
     >
-        <Stack.Screen name="DebugMenu" component={Screens.DebugMenu} />
+        <Stack.Screen name="DeveloperMenu" component={Screens.DeveloperMenuScreen} />
         <Stack.Screen name="Welcome" component={Screens.WelcomeScreen} />
         <Stack.Screen name="MatchList" component={Screens.MatchListScreen} />
           

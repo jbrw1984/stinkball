@@ -6,16 +6,16 @@ import { ScrollView, TextStyle, View, ViewStyle } from "react-native"
 import { colors, spacing } from "../theme"
 
 
-interface DebugMenuProps {
-  onPress: () => void;
+// interface DebugMenuProps {
+//   onPress: () => void;
 
-  // Fix typing later.
-  navigation: any;
-}
+//   // Fix typing later.
+//   navigation: any;
+// }
 
 
-export function DebugMenu() {
-  const [showPassword, setShowPassword] = useState<boolean>(false);
+export function DeveloperMenuScreen() {
+  // const [showPassword, setShowPassword] = useState<boolean>(false);
 
   return (
 
@@ -27,7 +27,8 @@ export function DebugMenu() {
         action="primary"
         marginHorizontal={20}
       >
-        <ButtonText fontFamily={typography.fonts.poppins.medium}>Splash Screen </ButtonText>
+        <ButtonText 
+          fontFamily={typography.fonts.poppins.medium}>Splash Screen </ButtonText>
         <ButtonIcon as={Droplet} />
       </Button>
 

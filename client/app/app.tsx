@@ -19,7 +19,7 @@ if (__DEV__) {
 import "./i18n"
 import "./utils/ignoreWarnings"
 import { useFonts } from "expo-font"
-import React from "react"
+import React, { useEffect } from "react"
 import { initialWindowMetrics, SafeAreaProvider } from "react-native-safe-area-context"
 import * as Linking from "expo-linking"
 import { useInitialRootStore } from "./models"
@@ -32,9 +32,20 @@ import { GestureHandlerRootView } from "react-native-gesture-handler"
 import { ViewStyle } from "react-native"
 import { GluestackUIProvider, Text } from "@gluestack-ui/themed"
 import { config } from "@gluestack-ui/config"
+// import { registerDevMenuItems, addCustomDevMenuButton } from 'expo-dev-menu';
+// import * as DevMenu from 'expo-dev-menu';
 
 
 export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
+
+// if (__DEV__) {
+//   DevMenu.registerDevMenuItems([
+//     {
+//       name: 'Developer Menu',
+//       callback: () => {console.log("Hello World")},
+//     },
+//   ]);
+// }
 
 // Web linking configuration
 const prefix = Linking.createURL("/")
@@ -96,6 +107,16 @@ function App(props: AppProps) {
     prefixes: [prefix],
     navigationConfig,
   }
+
+  // useEffect(() => {
+  //   registerDevMenuItems([
+  //     {
+  //       name: 'Developer Menu',
+  //       callback: () => {console.log("Hello World")},
+  //     },
+  //   ])
+  // }, [])
+
 
   // otherwise, we're ready to render the app
   return (
