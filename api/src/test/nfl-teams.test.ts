@@ -15,12 +15,30 @@ const app = new App([nflTeamsRoute]);
 const nflteams = nflTeamsRoute.nflteam.nflteam;
 const mockNFLTeamsList : NFLTeam[] = mockNFLTeams; 
 
+beforeAll(async () => {
+  await DB.NFLTeams.truncate();
+});
 
 afterAll(async () => {
   await new Promise<void>(resolve => setTimeout(() => resolve(), 500));
 });
 
 describe('Testing NFL Teams', () => {
+
+  describe('[POST] /nfl-teams', () => {
+    it('response addAll nfl-teams', async () => {
+      
+      const result = await request(app.getServer()).post(`${nflTeamsRoute.path}`);
+    
+      expect(result.status).toEqual(200);
+      expect(result.body.data[0].team_city_long).toEqual("Arizona");
+      expect(result.body.data[31].team_city_short).toEqual("WSH");
+      expect(result.body.data[25].team_name_short).toEqual("Steelers");
+      expect(result.body.data[21].team_name_long).toEqual("New England Patriots");
+      expect(result.body.data[17].team_logo).toEqual("https://a.espncdn.com/combiner/i?img=/i/teamlogos/nfl/500/lac.png");
+      expect(result.body.data.length).toEqual(32);
+    }); 
+  });
 
   describe('[GET] /nfl-teams', () => {
     it('response findAll nfl-teams', async () => {
@@ -95,7 +113,6 @@ describe('Testing NFL Teams', () => {
     });
 
   });
-
-
-
+  
+  
 });

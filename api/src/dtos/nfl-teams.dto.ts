@@ -4,13 +4,13 @@ export class CreateNFLTeamDto {
   @IsString()
   @IsNotEmpty()
   @MinLength(1)
-  @MaxLength(5)
+  @MaxLength(15)
   public team_name_short: string; 
 
   @IsString()
   @IsNotEmpty()
   @MinLength(1)
-  @MaxLength(15)
+  @MaxLength(30)
   public team_name_long: string; 
 
   @IsString()
