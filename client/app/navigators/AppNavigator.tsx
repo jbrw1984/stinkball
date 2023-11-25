@@ -54,64 +54,27 @@ export type AppStackScreenProps<T extends keyof AppStackParamList> = NativeStack
 // Documentation: https://reactnavigation.org/docs/stack-navigator/
 const Stack = createNativeStackNavigator<AppStackParamList>()
 
-
 const AppStack = observer(function AppStack() {
   const navigation = useNavigation();
 
-  // const navigateToDevScreen = () => {
-  //   navigation.navigate('DeveloperMenu'); 
-  // }
-
-  // useEffect(() => {
-  //   registerDevMenuItems([
-  //     {
-  //       name: 'Developer Menu',
-  //       callback: navigateToDevScreen,
-  //     },
-  //   ])
-  // }, [])
-
-  // useEffect(() => {
-  //   registerDevMenuItems([
-  //     {
-  //       name: 'My Custom Button',
-  //       callback: () => console.log('Hello world!'),
-  //     },
-  //   ])
-  // }, [])
-
-
-  // useEffect(() => {
-  //   // Navigate to the "Welcome" screen when the component mounts
-  //   navigation.navigate('Welcome')
-
-  // }, [navigation])
+  // Flag variable for entering/exiting developer menu
+  const debugMode = true; 
 
   React.useEffect(() => {
     // Navigate to the "Welcome" screen when the component mounts
-    // try {
-    //   registerDevMenuItems([
-    //     {
-    //       name: 'My Custom Button',
-    //       callback: () => console.log('Hello world!'),
-    //     },
-    //   ])
-    // }
-    // catch (err) {
-    //   console.log("Error occured when registering Dev Menu: ", err)
-    // }
-
-    navigation.navigate('DeveloperMenu')
-
-
+    if (debugMode) {
+      navigation.navigate('DeveloperMenu'); 
+    }
+    else {
+      navigation.navigate('Welcome')
+    }
   }, [navigation])
+
 
 
   return (
     <Stack.Navigator
       initialRouteName="Welcome"
-      // initialRouteName="DebugMenu"
-
       screenOptions={{ headerShown: false, navigationBarColor: colors.background }}
     >
         <Stack.Screen name="DeveloperMenu" component={Screens.DeveloperMenuScreen} />
