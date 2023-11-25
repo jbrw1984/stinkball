@@ -32,20 +32,9 @@ import { GestureHandlerRootView } from "react-native-gesture-handler"
 import { ViewStyle } from "react-native"
 import { GluestackUIProvider, Text } from "@gluestack-ui/themed"
 import { config } from "@gluestack-ui/config"
-// import { registerDevMenuItems, addCustomDevMenuButton } from 'expo-dev-menu';
-// import * as DevMenu from 'expo-dev-menu';
-
 
 export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
 
-// if (__DEV__) {
-//   DevMenu.registerDevMenuItems([
-//     {
-//       name: 'Developer Menu',
-//       callback: () => {console.log("Hello World")},
-//     },
-//   ]);
-// }
 
 // Web linking configuration
 const prefix = Linking.createURL("/")
@@ -107,15 +96,6 @@ function App(props: AppProps) {
     prefixes: [prefix],
     navigationConfig,
   }
-
-  // useEffect(() => {
-  //   registerDevMenuItems([
-  //     {
-  //       name: 'Developer Menu',
-  //       callback: () => {console.log("Hello World")},
-  //     },
-  //   ])
-  // }, [])
 
 
   // otherwise, we're ready to render the app
