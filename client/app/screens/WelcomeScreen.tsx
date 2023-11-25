@@ -2,9 +2,20 @@ import React, { useRef } from "react";
 import { Image, ImageStyle, ViewStyle, ScrollView, KeyboardAvoidingView, Platform } from "react-native";
 import { LogIn } from "../components/LogIn";
 import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { AppStackParamList } from "app/navigators/AppNavigator";
 const stinkBallLogo = require("../../assets/images/MainStinkballLogo.png");
 
-export const WelcomeScreen = () => {
+type WelcomeScreenNavigationProp = NativeStackNavigationProp<
+  AppStackParamList,
+  'Welcome'
+>
+
+export interface WelcomeScreenProps {
+  navigation: WelcomeScreenNavigationProp;
+}
+
+export const WelcomeScreen = (props: WelcomeScreenProps) => {
   const scrollViewRef = useRef<ScrollView>(null);
 
   // Create instance of useNavigation in order to pass to LogIn component.

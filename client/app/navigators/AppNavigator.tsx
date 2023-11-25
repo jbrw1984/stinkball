@@ -12,13 +12,12 @@ import {
 } from "@react-navigation/native"
 import { createNativeStackNavigator, NativeStackScreenProps } from "@react-navigation/native-stack"
 import { observer } from "mobx-react-lite"
-import React, { useEffect } from "react"
+import React from "react"
 import { useColorScheme } from "react-native"
 import * as Screens from "app/screens"
 import Config from "../config"
 import { navigate, navigationRef, useBackButtonHandler } from "./navigationUtilities"
 import { colors } from "app/theme"
-// import { registerDevMenuItems } from 'expo-dev-menu';
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -55,6 +54,7 @@ export type AppStackScreenProps<T extends keyof AppStackParamList> = NativeStack
 // Documentation: https://reactnavigation.org/docs/stack-navigator/
 const Stack = createNativeStackNavigator<AppStackParamList>()
 
+
 const AppStack = observer(function AppStack() {
   const navigation = useNavigation();
 
@@ -89,7 +89,21 @@ const AppStack = observer(function AppStack() {
 
   React.useEffect(() => {
     // Navigate to the "Welcome" screen when the component mounts
+    // try {
+    //   registerDevMenuItems([
+    //     {
+    //       name: 'My Custom Button',
+    //       callback: () => console.log('Hello world!'),
+    //     },
+    //   ])
+    // }
+    // catch (err) {
+    //   console.log("Error occured when registering Dev Menu: ", err)
+    // }
+
     navigation.navigate('DeveloperMenu')
+
+
   }, [navigation])
 
 
@@ -124,6 +138,7 @@ export const AppNavigator = observer(function AppNavigator(props: NavigationProp
       ref={navigationRef}
       theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
       {...props}
+
     >
       <AppStack />
     </NavigationContainer>
