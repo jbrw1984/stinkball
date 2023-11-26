@@ -14,5 +14,6 @@ export class NFLPlayerRoute implements Routes {
   private initializeRoutes() {
     this.router.get(`${this.path}`, this.nflPlayer.getNFLPlayers);
     this.router.get(`${this.path}/:id(\\d+)`, this.nflPlayer.getNFLPlayerById);
+    this.router.post(`${this.path}`, this.nflPlayer.postNFLPlayers);
   }
 }
