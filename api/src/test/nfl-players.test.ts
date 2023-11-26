@@ -62,6 +62,19 @@ afterAll(async () => {
 });
 
 describe("Testing NFL Players", () => {
+
+  describe('[POST] /nfl-players', () => {
+    it('response addAll nfl-players', async () => {
+
+      const result = await request(app.getServer()).post(`${nflPlayersRoute.path}`);
+
+      expect(result.status).toEqual(200);
+      expect(result.body.data.length).toBeGreaterThanOrEqual(2000);
+    
+    // Set timeout to 20 seconds to give test time to add every player.
+    }, 20000); 
+  });
+
   describe('[GET] /nfl-players', () => {
     it('response findAll nfl-players', async () => {
       // Call our GET NFL players endpoint
@@ -69,7 +82,6 @@ describe("Testing NFL Players", () => {
       
       // Check for good status and all five players in response
       expect(result.status).toEqual(200);
-      expect(result.body.data.length).toEqual(5);
       // Randomly check 1 value from each player in the response
       expect(result.body.data[0].position).toEqual(player1.position);
       expect(result.body.data[1].player_portrait).toEqual(player2.player_portrait);
@@ -104,7 +116,7 @@ describe("Testing NFL Players", () => {
 
     it('response findOne nfl-player - exception', async () => {
       const mockNFLPlayer : NFLPlayer = {
-        id: 6,
+        id: 6000,
         player_name: "Player 6",
         teamId: 6,
         position: "Defense",

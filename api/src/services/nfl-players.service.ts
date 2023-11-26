@@ -19,7 +19,7 @@ export class NFLPlayerService {
   }
 
   public async createNFLPlayer(nflPlayer: NFLPlayerDTO): Promise<NFLPlayer> {
-    // Check if team already exists.
+    // Check if player already exists. (portraits are unique)
     const findNFLPlayer: NFLPlayer = await DB.NFLPlayers.findOne({ where: { player_name: nflPlayer.player_name, player_portrait: nflPlayer.player_portrait } });
     if (findNFLPlayer) throw new HttpException(409, `This nfl player ${nflPlayer.player_name} already exists`);
 
