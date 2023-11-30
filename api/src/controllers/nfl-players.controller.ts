@@ -60,12 +60,11 @@ export class NFLPlayerController {
           }
           // Some players dont have portraits.
           validPlayer = !(!newNFLPlayer.player_portrait);
+          if (!validPlayer) newNFLPlayer.player_portrait = "https://www.gravatar.com/avatar/?d=mp";
 
           // Create Player and add to response array.
-          if (validPlayer) {
-            let addNewNFLPlayer: NFLPlayer = await this.nflPlayer.createNFLPlayer(newNFLPlayer);
-            if (addNewNFLPlayer) nflPlayers.push(addNewNFLPlayer);
-          }
+          let addNewNFLPlayer: NFLPlayer = await this.nflPlayer.createNFLPlayer(newNFLPlayer);
+          if (addNewNFLPlayer) nflPlayers.push(addNewNFLPlayer);
         }
         res.status(200).json({ data: nflPlayers, message: 'seedNFLPlayers' });
       } catch (error) {
