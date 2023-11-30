@@ -16,7 +16,7 @@ import React from "react"
 import { useColorScheme } from "react-native"
 import * as Screens from "app/screens"
 import Config from "../config"
-import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
+import { navigate, navigationRef, useBackButtonHandler } from "./navigationUtilities"
 import { colors } from "app/theme"
 
 /**
@@ -33,6 +33,7 @@ import { colors } from "app/theme"
  *   https://reactnavigation.org/docs/typescript/#organizing-types
  */
 export type AppStackParamList = {
+  DeveloperMenu: undefined
   Welcome: undefined
   MatchList: undefined
   // 🔥 Your screens go here
@@ -56,16 +57,27 @@ const Stack = createNativeStackNavigator<AppStackParamList>()
 const AppStack = observer(function AppStack() {
   const navigation = useNavigation();
 
+  // Flag variable for entering/exiting developer menu
+  const debugMode = true; 
+
   React.useEffect(() => {
     // Navigate to the "Welcome" screen when the component mounts
-    navigation.navigate('Welcome')
+    if (debugMode) {
+      navigation.navigate('DeveloperMenu'); 
+    }
+    else {
+      navigation.navigate('Welcome')
+    }
   }, [navigation])
+
+
 
   return (
     <Stack.Navigator
       initialRouteName="Welcome"
       screenOptions={{ headerShown: false, navigationBarColor: colors.background }}
     >
+        <Stack.Screen name="DeveloperMenu" component={Screens.DeveloperMenuScreen} />
         <Stack.Screen name="Welcome" component={Screens.WelcomeScreen} />
         <Stack.Screen name="MatchList" component={Screens.MatchListScreen} />
           
@@ -89,6 +101,7 @@ export const AppNavigator = observer(function AppNavigator(props: NavigationProp
       ref={navigationRef}
       theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
       {...props}
+
     >
       <AppStack />
     </NavigationContainer>
