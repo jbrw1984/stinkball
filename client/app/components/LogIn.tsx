@@ -2,12 +2,17 @@ import React, { useState } from 'react';
 import { Input, InputField, FormControl, VStack, Text, InputSlot, InputIcon, Button, ButtonText } from "@gluestack-ui/themed";
 import { EyeIcon, EyeOffIcon } from 'lucide-react-native';
 import { typography } from 'app/theme';
+import { AppStackParamList } from 'app/navigators/AppNavigator';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
+type WelcomeScreenNavigationProp = NativeStackNavigationProp<
+  AppStackParamList,
+  'Welcome'
+>
 
 interface LogInProps {
   onPress: () => void;
-
-  // Fix typing later.
-  navigation: any;
+  navigation: WelcomeScreenNavigationProp;
 }
 
 export const LogIn: React.FC<LogInProps> = ({ onPress, navigation }) => {
@@ -17,6 +22,7 @@ export const LogIn: React.FC<LogInProps> = ({ onPress, navigation }) => {
   const [disableButton, setDisableButton] = useState<boolean>(true);
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
 
   const handleState = () => {
     // When user changes from viewing password to displaying password flip showState

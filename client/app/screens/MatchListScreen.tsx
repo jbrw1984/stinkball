@@ -4,10 +4,21 @@ import React, { useState, useEffect } from "react";
 import { ScrollView, Text, ViewStyle, View, TextStyle } from "react-native";
 import { MatchScorePreviewType, MatchScorePreviewData } from "app/components/MatchScorePreviewTempData/MatchScorePreviewData";
 import { typography } from "app/theme";
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { AppStackParamList } from "app/navigators/AppNavigator";
+
+type MatchListNavigationProp = NativeStackNavigationProp<
+  AppStackParamList,
+  'MatchList'
+>
+
+export interface MatchListProps {
+  navigation: MatchListNavigationProp;
+}
 
 const weeks: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
 
-export const MatchListScreen = () => {
+export const MatchListScreen = (props: MatchListProps) => {
   const [currentWeek, setCurrentWeek] = useState<number>(1);
   const [currentWeekData, setCurrentWeekData] = useState<MatchScorePreviewType[]>([]);
 

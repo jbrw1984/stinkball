@@ -32,7 +32,7 @@ export default function (sequelize: Sequelize): typeof NFLTeamModel {
       team_name_long: {
         allowNull: false,
         unique: 'teamNameUnique', 
-        type: DataTypes.STRING(15)
+        type: DataTypes.STRING(30)
       }, 
       team_city_long: {
         allowNull: false,
@@ -42,7 +42,7 @@ export default function (sequelize: Sequelize): typeof NFLTeamModel {
       team_city_short: {
         allowNull: false,
         unique: 'teamCityUnique', 
-        type: DataTypes.STRING(5)
+        type: DataTypes.STRING(15)
       }, 
       team_logo: {
         allowNull: false,
