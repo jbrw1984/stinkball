@@ -4,6 +4,7 @@ import { EyeIcon, EyeOffIcon } from 'lucide-react-native';
 import { typography } from 'app/theme';
 import { AppStackParamList } from 'app/navigators/AppNavigator';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { CreateUserDto } from '../../../api/src/dtos/users.dto';
 
 type WelcomeScreenNavigationProp = NativeStackNavigationProp<
   AppStackParamList,
@@ -52,6 +53,41 @@ export const LogIn: React.FC<LogInProps> = ({ onPress, navigation }) => {
     setDisableButton(!newUsername || !newPassword);
   }
 
+  const authenticateUser = (): void => {
+    if (signUp) {
+
+      const postUser = async () => {
+        const apiUrl = 'http://localhost:3000/users';
+
+        const newUser: CreateUserDto = {
+          email: username,
+          password: password,
+        };
+
+        try {
+          const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newUser),
+          });
+
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+
+          const data = await response.json();
+          console.log('Response data:', data);
+        } catch (error: any) {
+          console.error('Error:', error.message);
+        }
+      }
+      postUser();
+    } else {
+      navigation.navigate('MatchList');
+    }
+  }
   return (
     <FormControl p='$4' width="80%">
       <VStack space='xl'>
@@ -98,7 +134,7 @@ export const LogIn: React.FC<LogInProps> = ({ onPress, navigation }) => {
           </Text>
         </VStack>
         {/* When user logs in or signs up send them to MatchList screen (we will add validation later) */}
-        <Button action="primary" onPress={() => navigation.navigate('MatchList')} isDisabled={disableButton}>
+        <Button action="primary" onPress={authenticateUser} isDisabled={disableButton}>
           <ButtonText color='$white' fontFamily={typography.fonts.poppins.semiBold}>
             {signUp ? "Sign Up" : "Log In"}
           </ButtonText>
