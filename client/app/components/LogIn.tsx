@@ -55,7 +55,6 @@ export const LogIn: React.FC<LogInProps> = ({ onPress, navigation }) => {
 
   const authenticateUser = (): void => {
     if (signUp) {
-
       const postUser = async () => {
         const apiUrl = 'http://localhost:3000/users';
 
@@ -85,7 +84,29 @@ export const LogIn: React.FC<LogInProps> = ({ onPress, navigation }) => {
       }
       postUser();
     } else {
-      navigation.navigate('MatchList');
+      const getUser = async () => {
+        const apiUrl = `http://localhost:3000/users/${email}/${password}`;
+
+        try {
+          const response = await fetch(apiUrl, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          });
+
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+
+          const data = await response.json();
+          console.log('Response data:', data);
+        } catch (error: any) {
+          console.error('Error:', error.message);
+        }
+      }
+      getUser();
+      //navigation.navigate('MatchList');
     }
   }
   return (

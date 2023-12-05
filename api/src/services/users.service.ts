@@ -1,4 +1,4 @@
-import { hash } from 'bcrypt';
+import { hash, compare } from 'bcrypt';
 import { Service } from 'typedi';
 import { DB } from '@database';
 import { CreateUserDto, UpdateUserDto } from '@dtos/users.dto';
@@ -20,9 +20,14 @@ export class UserService {
   }
 
   public async findUserByEmailPassword(email: string, password: string): Promise<User> {
-    const hashedPassword = await hash(password, 10);
-    const findUser: User = await DB.Users.findOne({ where: { email: email, password: hashedPassword } });
+    // Check if user exists 
+    const findUser: User = await DB.Users.findOne({ where: { email: email } });
     if (!findUser) throw new HttpException(403, 'Incorrect email or password.');
+    
+    // Check if password matches user 
+    const isPasswordValid = await compare(password, findUser.password);
+    // Both exceptions send the same message for security purposes
+    if (!isPasswordValid) throw new HttpException(403, 'Incorrect email or password.');
 
     return findUser;
   }
