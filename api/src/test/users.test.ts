@@ -149,6 +149,53 @@ describe('Testing Users', () => {
     });
   });
 
+  describe('[GET] /users/:email/:password', () => {
+    it('response findOneUser', async () => {
+
+      // Mock the user data for a specific user
+      const mockUser = {
+        id: 1,
+        email: 'a@email.com',
+        password: 'q1w2e3r4!',
+      };
+
+      // Mock the findUserByEmailPassword method to return the specific user
+      users.findUserByEmailPassword = jest.fn().mockReturnValue(mockUser);
+
+      (Sequelize as any).authenticate = jest.fn();
+
+      const app = new App([usersRoute]);
+      const result = await request(app.getServer()).get(`${usersRoute.path}/${mockUser.email}/${mockUser.password}`);
+
+      // Perform assertions
+      expect(result.status).toEqual(200);
+      expect(result.body.data.id).toEqual(mockUser.id);
+      expect(result.body.data.email).toEqual(mockUser.email);
+      expect(result.body.data.password).toEqual(mockUser.password);
+    });
+
+    it('response Invalid login', async () => {
+      // Mock the user data for a specific user
+      const mockUser = {
+        id: 1,
+        email: 'a@email.com',
+        password: 'q1w2e3r4!',
+      };
+
+      // Mock the findUserByEmailPassword method to return the specific user
+      users.findUserByEmailPassword = jest.fn().mockRejectedValue(new HttpException(403, 'Incorrect email or password.'));
+
+      (Sequelize as any).authenticate = jest.fn();
+
+      const app = new App([usersRoute]);
+      const result = await request(app.getServer()).get(`${usersRoute.path}/${mockUser.email}/${mockUser.password}`);
+
+      // Perform assertions
+      expect(result.status).toEqual(403);
+      expect(result.body.message).toEqual('Incorrect email or password.');
+    });
+  });
+
 
   describe('[DELETE] /users/:id', () => {
     it('response Delete user', async () => {
