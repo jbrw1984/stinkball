@@ -19,6 +19,14 @@ export class UserService {
     return findUser;
   }
 
+  public async findUserByEmailPassword(email: string, password: string): Promise<User> {
+    const hashedPassword = await hash(password, 10);
+    const findUser: User = await DB.Users.findOne({ where: { email: email, password: hashedPassword } });
+    if (!findUser) throw new HttpException(403, 'Incorrect email or password.');
+
+    return findUser;
+  }
+
   public async createUser(userData: CreateUserDto): Promise<User> {
     const findUser: User = await DB.Users.findOne({ where: { email: userData.email } });
     if (findUser) throw new HttpException(409, `This email ${userData.email} already exists`);
