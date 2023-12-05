@@ -21,7 +21,7 @@ export const LogIn: React.FC<LogInProps> = ({ onPress, navigation }) => {
   const [signUp, setSignUp] = useState<boolean>(false);
   // State variables for disabling login button.
   const [disableButton, setDisableButton] = useState<boolean>(true);
-  const [username, setUsername] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
 
@@ -39,18 +39,18 @@ export const LogIn: React.FC<LogInProps> = ({ onPress, navigation }) => {
     });
   }
 
-  const handleUsername = (text: string): void => {
-    setUsername(text);
+  const handleEmail = (text: string): void => {
+    setEmail(text);
     checkIsDisabled(text, password);
   }
 
   const handlePassword = (text: string): void => {
     setPassword(text);
-    checkIsDisabled(username, text);
+    checkIsDisabled(email, text);
   }
 
-  const checkIsDisabled = (newUsername: string, newPassword: string): void => {
-    setDisableButton(!newUsername || !newPassword);
+  const checkIsDisabled = (newEmail: string, newPassword: string): void => {
+    setDisableButton(!newEmail || !newPassword);
   }
 
   const authenticateUser = (): void => {
@@ -60,7 +60,7 @@ export const LogIn: React.FC<LogInProps> = ({ onPress, navigation }) => {
         const apiUrl = 'http://localhost:3000/users';
 
         const newUser: CreateUserDto = {
-          email: username,
+          email: email,
           password: password,
         };
 
@@ -93,16 +93,16 @@ export const LogIn: React.FC<LogInProps> = ({ onPress, navigation }) => {
       <VStack space='xl'>
         <VStack space='xs'>
           <Text color='$textLight200' lineHeight='$xs' fontFamily={typography.fonts.poppins.normal}>
-            Username
+            Email
           </Text>
           <Input>
             <InputField
-              id={"username-field"}
-              onChangeText={handleUsername}
+              id={"email-field"}
+              onChangeText={handleEmail}
               fontFamily={typography.fonts.poppins.light}
               color="$white"
               type="text"
-              placeholder='Enter your username...'
+              placeholder='Enter your email...'
             />
           </Input>
         </VStack>
