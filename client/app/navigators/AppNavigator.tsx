@@ -36,6 +36,7 @@ export type AppStackParamList = {
   DeveloperMenu: undefined
   Welcome: undefined
   MatchList: undefined
+  CreateMatch: undefined
   // 🔥 Your screens go here
   // IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
 }
@@ -80,6 +81,7 @@ const AppStack = observer(function AppStack() {
         <Stack.Screen name="DeveloperMenu" component={Screens.DeveloperMenuScreen} />
         <Stack.Screen name="Welcome" component={Screens.WelcomeScreen} />
         <Stack.Screen name="MatchList" component={Screens.MatchListScreen} />
+        <Stack.Screen name="CreateMatch" component={Screens.CreateMatchScreen} />
           
           
       {/** 🔥 Your screens go here */}
