@@ -30,10 +30,12 @@ export default function (sequelize: Sequelize): typeof NFLPLayerModel {
       }, 
       teamId: {
         allowNull: true,
+        unique: 'uniquePlayer',
         type: DataTypes.INTEGER,
       }, 
       position: {
         allowNull: false,
+        unique: 'uniquePlayer',
         type: DataTypes.STRING(15)
       },
       player_portrait: {
