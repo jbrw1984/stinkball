@@ -5,6 +5,7 @@ import { typography } from 'app/theme';
 import { AppStackParamList } from 'app/navigators/AppNavigator';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { CreateUserDto } from '../../../api/src/dtos/users.dto';
+import { useInitialRootStore, useStores } from 'app/models';
 
 type WelcomeScreenNavigationProp = NativeStackNavigationProp<
   AppStackParamList,
@@ -23,6 +24,8 @@ export const LogIn: React.FC<LogInProps> = ({ onPress, navigation }) => {
   const [disableButton, setDisableButton] = useState<boolean>(true);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
+  const rootStore = useStores();
 
 
   const handleState = () => {
@@ -85,25 +88,7 @@ export const LogIn: React.FC<LogInProps> = ({ onPress, navigation }) => {
       postUser();
     } else {
       const getUser = async () => {
-        const apiUrl = `http://localhost:3000/users/${email}/${password}`;
-
-        try {
-          const response = await fetch(apiUrl, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            }
-          });
-
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-
-          const data = await response.json();
-          console.log('Response data:', data);
-        } catch (error: any) {
-          console.error('Error:', error.message);
-        }
+        await rootStore.login(email, password);
       }
       getUser();
       //navigation.navigate('MatchList');
