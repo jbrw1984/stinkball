@@ -30,25 +30,21 @@ export const RootStoreModel = types
         password: password,
       }
 
-      try {
-        const response = yield fetch(apiUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(user),
-        });
+      // Call API
+      const response = yield fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+      });
 
-        if (!response.ok) throw new Error('Network response was not ok');
-        
-
-        const data = yield response.json();
-        console.log(data);
-        const userSnapshot = { id: String(data.id), email, password, cookie: data.cookie }
-        self.addUser(userSnapshot);
-      } catch (error: any) {
-        console.error('Error:', error.message);
-      }
+      if (!response.ok) throw new Error('Invalid email or password please try again.');
+      
+      // Extract data. Create snapshot and addUser to state tree.
+      const data = yield response.json();
+      const userSnapshot = { id: String(data.id), email, password, cookie: data.cookie }
+      self.addUser(userSnapshot);
     })
   }))
 
