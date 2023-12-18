@@ -1,10 +1,9 @@
 import React from 'react';
-import { VStack, Button, ButtonText, ButtonIcon, AddIcon, ScrollView, FormControl, FormControlLabel, FormControlLabelText, Input, InputField, FormControlHelper, FormControlHelperText, FormControlError, FormControlErrorIcon, FormControlErrorText, View } from "@gluestack-ui/themed";
+import { VStack, Button, ButtonText, ButtonIcon, AddIcon, ScrollView, FormControl, FormControlLabel, FormControlLabelText, Input, InputField, FormControlHelper, FormControlHelperText, FormControlError, FormControlErrorIcon, FormControlErrorText, View, Text} from "@gluestack-ui/themed";
 import { ScanFace, List, PlusCircle, Swords, AlertCircleIcon} from 'lucide-react-native';
-import { typography } from 'app/theme';
 import { AppStackParamList } from 'app/navigators/AppNavigator';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { colors } from "app/theme"
+import { colors, typography} from "app/theme"
 
 type CreateMatchScreenNavigationProp = NativeStackNavigationProp<
   AppStackParamList,
@@ -13,6 +12,7 @@ type CreateMatchScreenNavigationProp = NativeStackNavigationProp<
 
 export interface CreateMatchScreenProps {
   navigation: CreateMatchScreenNavigationProp;
+  currentWeek: number;
 }
 
 /**
@@ -20,6 +20,9 @@ export interface CreateMatchScreenProps {
  * @component
  */
 export function CreateMatchScreen(props: CreateMatchScreenProps) {
+  const [leagueName, setLeagueName] = React.useState<string>("");
+  const [week, setWeek] = React.useState<number>(1);
+  const [teamName, setTeamName] = React.useState<string>("");
 
   return (
     <ScrollView>
@@ -28,47 +31,116 @@ export function CreateMatchScreen(props: CreateMatchScreenProps) {
         backgroundColor={colors.background}
         flex={1}
         flexDirection="column"
-        gap={10}
-        alignContent="center"
+        // gap={10}
+        // alignContent="center"
         alignItems="center"
-        justifyContent="flex-start"
-        paddingTop={60}
-        paddingBottom={60}
-        minHeight="100%"
+        // justifyContent="flex-start"
+        // paddingTop={60}
+        // paddingBottom={60}
+        // minHeight="100%"
       
       >
-      <FormControl
-          size="md"
+        <Text
+          color={colors.text}
+          fontSize={32}
+          fontFamily={typography.fonts.poppins.bold}
+          textAlign="center"
+          marginTop={30}
+          marginBottom={59}
+          marginHorizontal={83}
+        >
+          Create Match
+        </Text>
+
+
+        <FormControl
+          // size="md"
           isDisabled={false}
           isInvalid={false}
           isReadOnly={false}
           isRequired={false}
+          width="80%"
+          gap={31}
         >
-          <FormControlLabel mb="$1">
-            <FormControlLabelText
-              
-            >League Name</FormControlLabelText>
-          </FormControlLabel>
-          <Input>
-            <InputField type="text" placeholder="Enter League Name..." />
-          </Input>
+
+          <View>
+            <FormControlLabel mb="$1"
+              marginHorizontal={30}
+            >
+              <FormControlLabelText
+                  color={colors.text}
+                  fontSize={18}
+                  fontFamily={typography.fonts.poppins.semiBold}
+              >
+                League Name
+              </FormControlLabelText>
+            </FormControlLabel>
+            <Input
+              marginHorizontal={30}
+            >
+              <InputField 
+                type="text" 
+                color={colors.text}
+                fontSize={18}
+                fontFamily={typography.fonts.poppins.normal}
+                placeholder="Enter League Name..." 
+              />
+            </Input>
+          </View>
+          
+
+          <View>
+            <FormControlLabel mb="$1"
+              marginHorizontal={30}
+            >
+              <FormControlLabelText
+                color={colors.text}
+                fontSize={18}
+                fontFamily={typography.fonts.poppins.semiBold}
+              >
+                Week
+              </FormControlLabelText>
+            </FormControlLabel>
+            {/** make default value as the current week */}
+            <Input
+              marginHorizontal={30}
+            >
+              <InputField 
+                type="text"   
+                color={colors.text}
+                fontSize={18}
+                fontFamily={typography.fonts.poppins.normal}
+                // defaultValue="1" 
+                placeholder="Week to play..." 
+              />
+            </Input>
+          </View>
 
 
-          <FormControlLabel mb="$1">
-            <FormControlLabelText>Week</FormControlLabelText>
-          </FormControlLabel>
-          {/** make default value as the current week */}
-          <Input>
-            <InputField type="text" defaultValue="1" placeholder="Week to play..." />
-          </Input>
-
-
-          <FormControlLabel mb="$1">
-            <FormControlLabelText>Team Name</FormControlLabelText>
-          </FormControlLabel>
-          <Input>
-            <InputField type="text" placeholder="Enter your team's name..." />
-          </Input>
+          <View>
+            <FormControlLabel mb="$1"
+              marginHorizontal={30}
+            >
+              <FormControlLabelText
+                color={colors.text}
+                fontSize={18}
+                fontFamily={typography.fonts.poppins.semiBold}
+              >
+                Team Name
+              </FormControlLabelText>
+            </FormControlLabel>
+            <Input
+              marginHorizontal={30}
+            >
+              <InputField 
+                type="text"   
+                color={colors.text}
+                fontSize={18}
+                fontFamily={typography.fonts.poppins.normal}
+                placeholder="Enter your team's name..." 
+              />
+            </Input>
+          </View>
 
           {/* <FormControlHelper>
             <FormControlHelperText>
@@ -84,25 +156,27 @@ export function CreateMatchScreen(props: CreateMatchScreenProps) {
           </FormControlError> */}
 
           <Button
-            size="md"
+            // size="md"
             variant="solid"
             action="primary"
-            marginHorizontal={20}
+            height={50}
+            width={277}
+            borderRadius={50}
+            alignSelf='center'
+            // marginTop={28}
+            marginBottom={31}
           >
-            <ButtonText fontFamily={typography.fonts.poppins.medium}>Create Match </ButtonText>
+            <ButtonText 
+              color={colors.text}
+              fontSize={18}
+              fontFamily={typography.fonts.poppins.medium}
+            >
+              Create Match 
+            </ButtonText>
           </Button>
 
         </FormControl>
-
-
-
-
-
-
       </View>
-
-      
     </ScrollView>
-
   );
 };
