@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import { VStack, Button, ButtonText, ButtonIcon, AddIcon, ScrollView, FormControl, FormControlLabel, FormControlLabelText, Input, InputField, FormControlHelper, FormControlHelperText, FormControlError, FormControlErrorIcon, FormControlErrorText, View, Text} from "@gluestack-ui/themed";
-import { ScanFace, List, PlusCircle, Swords, AlertCircleIcon} from 'lucide-react-native';
+import { Button, ButtonText, ScrollView, FormControl, FormControlLabel, FormControlLabelText, Input, InputField, View, Text} from "@gluestack-ui/themed";
 import { AppStackParamList } from 'app/navigators/AppNavigator';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { colors, typography} from "app/theme"
@@ -12,7 +11,6 @@ type CreateMatchScreenNavigationProp = NativeStackNavigationProp<
 
 export interface CreateMatchScreenProps {
   navigation: CreateMatchScreenNavigationProp;
-  currentWeek: number;
 }
 
 /**
@@ -24,9 +22,14 @@ export function CreateMatchScreen(props: CreateMatchScreenProps) {
   const [week, setWeek] = React.useState<string>("");
   const [teamName, setTeamName] = React.useState<string>("");
   const [createMatchDisabled, setCreateMatchDisabled] = React.useState<boolean>(true);
+  const NFL_WEEKS = 18;
+
+  // TODO: Allow matches for current/future weeks only. 
+  // Pass the current week as a prop/state to this screen.
+  // Output error message if week is invalid.
 
   useEffect(() => {
-    if (leagueName !== "" && week !== "" && teamName !== "") {
+    if (leagueName !== "" && week !== "" && teamName !== "" && Number(week) <= NFL_WEEKS) {
       setCreateMatchDisabled(false);
     }
     else {
@@ -55,13 +58,10 @@ export function CreateMatchScreen(props: CreateMatchScreenProps) {
         backgroundColor={colors.background}
         flex={1}
         flexDirection="column"
-        // gap={10}
-        // alignContent="center"
         alignItems="center"
-        // justifyContent="flex-start"
-        // paddingTop={60}
-        // paddingBottom={60}
-        // minHeight="100%"
+        paddingTop={60}
+        paddingBottom={60}
+        minHeight="100%"
       
       >
         <Text
@@ -69,21 +69,18 @@ export function CreateMatchScreen(props: CreateMatchScreenProps) {
           fontSize={32}
           fontFamily={typography.fonts.poppins.bold}
           textAlign="center"
-          marginTop={30}
+          paddingTop={30}
           marginBottom={59}
-          marginHorizontal={83}
         >
           Create Match
         </Text>
 
-
         <FormControl
-          // size="md"
           isDisabled={false}
           isInvalid={false}
           isReadOnly={false}
           isRequired={false}
-          width="80%"
+          width="90%"
           gap={31}
         >
 
@@ -107,13 +104,13 @@ export function CreateMatchScreen(props: CreateMatchScreenProps) {
                 color={colors.text}
                 fontSize={18}
                 fontFamily={typography.fonts.poppins.normal}
-                placeholder="Enter League Name..." 
+                placeholder="Enter league name..." 
+                maxLength={30}
                 onChangeText={handleLeagueName}
               />
             </Input>
           </View>
           
-
           <View>
             <FormControlLabel mb="$1"
               marginHorizontal={30}
@@ -126,7 +123,7 @@ export function CreateMatchScreen(props: CreateMatchScreenProps) {
                 Week
               </FormControlLabelText>
             </FormControlLabel>
-            {/** make default value as the current week */}
+            {/** TODO: make default value as the current week */}
             <Input
               marginHorizontal={30}
             >
@@ -136,7 +133,6 @@ export function CreateMatchScreen(props: CreateMatchScreenProps) {
                 color={colors.text}
                 fontSize={18}
                 fontFamily={typography.fonts.poppins.normal}
-                // defaultValue="1" 
                 placeholder="Week to play..." 
                 maxLength={2}
                 onChangeText={handleWeek}
@@ -144,7 +140,6 @@ export function CreateMatchScreen(props: CreateMatchScreenProps) {
               />
             </Input>
           </View>
-
 
           <View>
             <FormControlLabel mb="$1"
@@ -167,23 +162,11 @@ export function CreateMatchScreen(props: CreateMatchScreenProps) {
                 fontSize={18}
                 fontFamily={typography.fonts.poppins.normal}
                 placeholder="Enter your team's name..." 
+                maxLength={20}
                 onChangeText={handleTeamName}
               />
             </Input>
           </View>
-
-          {/* <FormControlHelper>
-            <FormControlHelperText>
-              Must be at least 6 characters.
-            </FormControlHelperText>
-          </FormControlHelper>
-
-          <FormControlError>
-            <FormControlErrorIcon as={AlertCircleIcon} />
-            <FormControlErrorText>
-              At least 6 characters are required.
-            </FormControlErrorText>
-          </FormControlError> */}
 
           <Button
             // size="md"
