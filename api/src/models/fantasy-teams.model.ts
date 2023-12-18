@@ -1,9 +1,8 @@
 import { Sequelize, DataTypes, Model, Optional } from 'sequelize';
 import { FantasyTeam } from '@/interfaces/fantasy-teams';
-import { FantasyRoster } from '@/interfaces/fantasy-roster';
 
 export type FantasyTeamCreationAttributes = Optional<FantasyTeam, 'id' | 'team_name' | 'owner' |
-                                        'logo' | 'points' | 'positions'>;
+  'logo' | 'points' | 'qb' | 'wr1' | 'wr2' | 'rb1' | 'rb2' | 'te' | 'k' | 'dst'>;
 
 
 export class FantasyTeamModel extends Model<FantasyTeam, FantasyTeamCreationAttributes> implements FantasyTeam {
@@ -12,7 +11,15 @@ export class FantasyTeamModel extends Model<FantasyTeam, FantasyTeamCreationAttr
   public owner: number;
   public logo: string; 
   public points: number;
-  public positions: FantasyRoster;
+
+  public qb: number;
+  public rb1: number;
+  public rb2: number;
+  public wr1: number;
+  public wr2: number;
+  public te: number;
+  public k: number;
+  public dst: number;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -42,9 +49,37 @@ export default function (sequelize: Sequelize): typeof FantasyTeamModel {
         allowNull: true,
         type: DataTypes.INTEGER,
       },
-      positions: {
+      qb: {
         allowNull: true,
-        type: DataTypes.ABSTRACT,
+        type: DataTypes.INTEGER,
+      },
+      rb1: {
+        allowNull: true,
+        type: DataTypes.INTEGER,
+      },
+      rb2: {
+        allowNull: true,
+        type: DataTypes.INTEGER,
+      },
+      wr1: {
+        allowNull: true,
+        type: DataTypes.INTEGER,
+      },
+      wr2: {
+        allowNull: true,
+        type: DataTypes.INTEGER,
+      },
+      te: {
+        allowNull: true,
+        type: DataTypes.INTEGER,
+      },
+      k: {
+        allowNull: true,
+        type: DataTypes.INTEGER,
+      },
+      dst: {
+        allowNull: true,
+        type: DataTypes.INTEGER,
       },
     },
     {
