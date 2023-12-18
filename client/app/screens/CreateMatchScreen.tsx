@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { VStack, Button, ButtonText, ButtonIcon, AddIcon, ScrollView, FormControl, FormControlLabel, FormControlLabelText, Input, InputField, FormControlHelper, FormControlHelperText, FormControlError, FormControlErrorIcon, FormControlErrorText, View, Text} from "@gluestack-ui/themed";
 import { ScanFace, List, PlusCircle, Swords, AlertCircleIcon} from 'lucide-react-native';
 import { AppStackParamList } from 'app/navigators/AppNavigator';
@@ -21,8 +21,32 @@ export interface CreateMatchScreenProps {
  */
 export function CreateMatchScreen(props: CreateMatchScreenProps) {
   const [leagueName, setLeagueName] = React.useState<string>("");
-  const [week, setWeek] = React.useState<number>(1);
+  const [week, setWeek] = React.useState<string>("");
   const [teamName, setTeamName] = React.useState<string>("");
+  const [createMatchDisabled, setCreateMatchDisabled] = React.useState<boolean>(true);
+
+  useEffect(() => {
+    if (leagueName !== "" && week !== "" && teamName !== "") {
+      setCreateMatchDisabled(false);
+    }
+    else {
+      setCreateMatchDisabled(true);
+    }
+
+  } , [leagueName, week, teamName]);
+
+  const handleLeagueName = (text: string): void => {
+    setLeagueName(text);
+  }
+
+  const handleWeek = (text: string): void => {
+    setWeek(text);
+  }
+
+
+  const handleTeamName = (text: string): void => {
+    setTeamName(text);
+  }
 
   return (
     <ScrollView>
@@ -84,6 +108,7 @@ export function CreateMatchScreen(props: CreateMatchScreenProps) {
                 fontSize={18}
                 fontFamily={typography.fonts.poppins.normal}
                 placeholder="Enter League Name..." 
+                onChangeText={handleLeagueName}
               />
             </Input>
           </View>
@@ -107,11 +132,15 @@ export function CreateMatchScreen(props: CreateMatchScreenProps) {
             >
               <InputField 
                 type="text"   
+                keyboardType="number-pad"
                 color={colors.text}
                 fontSize={18}
                 fontFamily={typography.fonts.poppins.normal}
                 // defaultValue="1" 
                 placeholder="Week to play..." 
+                maxLength={2}
+                onChangeText={handleWeek}
+
               />
             </Input>
           </View>
@@ -138,6 +167,7 @@ export function CreateMatchScreen(props: CreateMatchScreenProps) {
                 fontSize={18}
                 fontFamily={typography.fonts.poppins.normal}
                 placeholder="Enter your team's name..." 
+                onChangeText={handleTeamName}
               />
             </Input>
           </View>
@@ -161,10 +191,10 @@ export function CreateMatchScreen(props: CreateMatchScreenProps) {
             action="primary"
             height={50}
             width={277}
+            marginBottom={31}
             borderRadius={50}
             alignSelf='center'
-            // marginTop={28}
-            marginBottom={31}
+            isDisabled={createMatchDisabled}
           >
             <ButtonText 
               color={colors.text}
