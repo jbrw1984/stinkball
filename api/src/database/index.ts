@@ -3,6 +3,7 @@ import { NODE_ENV, DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_DATABASE } from '@
 import UserModel from '@models/users.model';
 import NFLTeamModel from '@models/nfl-teams.model';
 import NFLPLayerModel from '@/models/nfl-players.model';
+import FantasyTeamModel from '@/models/fantasy-teams.model';
 import { logger } from '@utils/logger';
 
 const sequelize = new Sequelize.Sequelize(DB_DATABASE, DB_USER, DB_PASSWORD, {
@@ -33,6 +34,7 @@ export const DB = {
   Users: UserModel(sequelize),
   NFLTeams: NFLTeamModel(sequelize),
   NFLPlayers: NFLPLayerModel(sequelize),
+  FantasyTeams: FantasyTeamModel(sequelize),
   sequelize, // connection instance (RAW queries)
   Sequelize, // library
 };

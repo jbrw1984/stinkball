@@ -1,4 +1,4 @@
-import { IsString, IsEmail, IsNotEmpty, MinLength, MaxLength, IsNumber } from 'class-validator';
+import { IsString, IsNotEmpty, MinLength, MaxLength, IsNumber } from 'class-validator';
 
 export class CreateFantasyTeamDto {
   @IsString()
