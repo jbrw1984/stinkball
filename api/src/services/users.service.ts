@@ -19,28 +19,6 @@ export class UserService {
     return findUser;
   }
 
-  public async findUserByEmailPassword(email: string, password: string): Promise<User> {
-    // Check if user exists 
-    const findUser: User = await DB.Users.findOne({ where: { email: email } });
-    if (!findUser) throw new HttpException(403, 'Incorrect email or password.');
-    
-    // Check if password matches user 
-    const isPasswordValid = await compare(password, findUser.password);
-    // Both exceptions send the same message for security purposes
-    if (!isPasswordValid) throw new HttpException(403, 'Incorrect email or password.');
-
-    return findUser;
-  }
-
-  public async createUser(userData: CreateUserDto): Promise<User> {
-    const findUser: User = await DB.Users.findOne({ where: { email: userData.email } });
-    if (findUser) throw new HttpException(409, `This email ${userData.email} already exists`);
-
-    const hashedPassword = await hash(userData.password, 10);
-    const createUserData: User = await DB.Users.create({ ...userData, password: hashedPassword });
-    return createUserData;
-  }
-
   public async updateUser(userId: number, userData: UpdateUserDto): Promise<User> {
     const findUser: User = await DB.Users.findByPk(userId);
     if (!findUser) throw new HttpException(409, "User doesn't exist");

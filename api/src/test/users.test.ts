@@ -24,62 +24,6 @@ afterAll(async () => {
 });
 
 describe('Testing Users', () => {
-
-  describe('[POST] /users', () => {
-    it('response Create user', async () => {
-
-      // Create mock user data
-      const userData: CreateUserDto = {
-        email: 'test@email.com',
-        password: 'q1w2e3r4!',
-      };
-
-      const hashedPassword = await bcrypt.hash(userData.password, 10); 
-
-      DB.Users.findOne = jest.fn().mockReturnValue(undefined); 
-      DB.Users.create = jest.fn().mockReturnValue({
-        id: 1, 
-        email: userData.email, 
-        password: hashedPassword
-      }); 
-
-      (Sequelize as any).authenticate = jest.fn();
-      
-      const result = await request(app.getServer())
-        .post(`${usersRoute.path}`)
-        .send(userData); 
-
-
-      expect(result.status).toEqual(201);
-      expect(result.body.data.email).toEqual(userData.email); 
-      expect(result.body.data.password).toEqual(hashedPassword); 
-    });
-
-    it('response Create existing user - exception', async () => {
-      const userData: CreateUserDto = {
-        email: 'test@email.com',
-        password: 'q1w2e3r4!',
-      };
-    
-      const hashedPassword = await bcrypt.hash(userData.password, 10); 
-
-      DB.Users.findOne = jest.fn().mockReturnValue({
-        id: 1, 
-        email: userData.email, 
-        password: hashedPassword
-      }); 
-
-      (Sequelize as any).authenticate = jest.fn();
-      
-      const result = await request(app.getServer())
-        .post(`${usersRoute.path}`)
-        .send(userData); 
-
-      expect(result.status).toEqual(409);
-      expect(result.body.message).toEqual(`This email ${userData.email} already exists`); 
-    });
-  });
-
   describe('[GET] /users', () => {
     it('response findAll users', async () => {
       const mockUsers = [
@@ -148,54 +92,6 @@ describe('Testing Users', () => {
       expect(result.body.data.password).toEqual(mockUser.password);
     });
   });
-
-  describe('[GET] /users/:email/:password', () => {
-    it('response findOneUser', async () => {
-
-      // Mock the user data for a specific user
-      const mockUser = {
-        id: 1,
-        email: 'a@email.com',
-        password: 'q1w2e3r4!',
-      };
-
-      // Mock the findUserByEmailPassword method to return the specific user
-      users.findUserByEmailPassword = jest.fn().mockReturnValue(mockUser);
-
-      (Sequelize as any).authenticate = jest.fn();
-
-      const app = new App([usersRoute]);
-      const result = await request(app.getServer()).get(`${usersRoute.path}/${mockUser.email}/${mockUser.password}`);
-
-      // Perform assertions
-      expect(result.status).toEqual(200);
-      expect(result.body.data.id).toEqual(mockUser.id);
-      expect(result.body.data.email).toEqual(mockUser.email);
-      expect(result.body.data.password).toEqual(mockUser.password);
-    });
-
-    it('response Invalid login', async () => {
-      // Mock the user data for a specific user
-      const mockUser = {
-        id: 1,
-        email: 'a@email.com',
-        password: 'q1w2e3r4!',
-      };
-
-      // Mock the findUserByEmailPassword method to return the specific user
-      users.findUserByEmailPassword = jest.fn().mockRejectedValue(new HttpException(403, 'Incorrect email or password.'));
-
-      (Sequelize as any).authenticate = jest.fn();
-
-      const app = new App([usersRoute]);
-      const result = await request(app.getServer()).get(`${usersRoute.path}/${mockUser.email}/${mockUser.password}`);
-
-      // Perform assertions
-      expect(result.status).toEqual(403);
-      expect(result.body.message).toEqual('Incorrect email or password.');
-    });
-  });
-
 
   describe('[DELETE] /users/:id', () => {
     it('response Delete user', async () => {

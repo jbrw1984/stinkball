@@ -28,29 +28,6 @@ export class UserController {
     }
   };
 
-  public getUserByEmailPassword = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const email: string = req.params.email;
-      const password: string = req.params.password;
-      const findOneUserData: User = await this.user.findUserByEmailPassword(email, password);
-
-      res.status(200).json({ data: findOneUserData, message: 'findOne' });
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  public createUser = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const userData: CreateUserDto = req.body;
-      const createUserData: User = await this.user.createUser(userData);
-
-      res.status(201).json({ data: createUserData, message: 'created' });
-    } catch (error) {
-      next(error);
-    }
-  };
-
   public updateUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userId = Number(req.params.id);
