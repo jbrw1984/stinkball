@@ -65,7 +65,7 @@ export const LogIn: React.FC<LogInProps> = ({ onPress, navigation }) => {
 
   const authenticateUser = (): void => {
     if (signUp) {
-      const postUser = async () => {
+      const postUser = async (): Promise<void> => {
         const apiUrl = 'http://localhost:3000/signup';
 
         const newUser: CreateUserDto = {
@@ -82,7 +82,7 @@ export const LogIn: React.FC<LogInProps> = ({ onPress, navigation }) => {
             body: JSON.stringify(newUser),
           });
 
-          if (!response.ok) throw new Error('Invalid email or password please try again.');
+          if (!response.ok) throw new Error('Invalid email or password. Please try again.');
           
           const data = await response.json();
           console.log('Response data:', data);
@@ -113,7 +113,7 @@ export const LogIn: React.FC<LogInProps> = ({ onPress, navigation }) => {
       }
       postUser();
     } else {
-      const getUser = async () => {
+      const getUser = async (): Promise<void> => {
         try {
           await rootStore.login(email, password);
           navigation.navigate('MatchList');

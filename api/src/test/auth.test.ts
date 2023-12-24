@@ -46,6 +46,29 @@ describe('Testing Auth', () => {
       expect(result.body.data.password).toEqual(hashedPassword);
     });
     
+
+    it('response should have exception', async () => {
+      const userData: CreateUserDto = {
+        email: 'test@email.com',
+        password: 'q1w2e3r4!',
+      };
+
+      const hashedPassword = await bcrypt.hash(userData.password, 10); 
+      DB.Users.findOne = jest.fn().mockReturnValue(null);
+      DB.Users.create = jest.fn().mockReturnValue({
+        id: 1,
+        email: userData.email,
+        password: hashedPassword,
+      });
+
+      (Sequelize as any).authenticate = jest.fn();
+      const result = await request(app.getServer())
+        .post(`/signup`)
+        .send(userData);
+
+      expect(result.status).toEqual(409);
+      expect(result.body.message).toEqual(`This email ${userData.email} already exists`); 
+    });
   });
 
   describe('[POST] /login', () => {

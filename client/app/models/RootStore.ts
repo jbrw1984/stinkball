@@ -4,7 +4,6 @@ import { CreateUserDto } from "../../../api/src/dtos/users.dto";
 const UserModel = types.model("User", {
   id: types.identifier,
   email: types.string,
-  password: types.string,
   cookie: types.optional(types.string, ""),
 });
 
@@ -39,11 +38,11 @@ export const RootStoreModel = types
         body: JSON.stringify(user),
       });
 
-      if (!response.ok) throw new Error('Invalid email or password please try again.');
+      if (!response.ok) throw new Error('Invalid email or password. Please try again.');
       
       // Extract data. Create snapshot and addUser to state tree.
       const data = yield response.json();
-      const userSnapshot = { id: String(data.id), email, password, cookie: data.cookie }
+      const userSnapshot = { id: String(data.id), email, cookie: data.cookie }
       self.addUser(userSnapshot);
     })
   }))
