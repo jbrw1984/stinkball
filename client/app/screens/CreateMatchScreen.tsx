@@ -3,6 +3,7 @@ import { Button, ButtonText, ScrollView, FormControl, FormControlLabel, FormCont
 import { AppStackParamList } from 'app/navigators/AppNavigator';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { colors, typography} from "app/theme"
+import { TeamAvatar } from 'app/components/TeamAvatar';
 
 type CreateMatchScreenNavigationProp = NativeStackNavigationProp<
   AppStackParamList,
@@ -29,7 +30,7 @@ export function CreateMatchScreen(props: CreateMatchScreenProps) {
   // Output error message if week is invalid.
 
   useEffect(() => {
-    if (leagueName !== "" && week !== "" && teamName !== "" && Number(week) <= NFL_WEEKS) {
+    if (leagueName && week && teamName && Number(week) <= NFL_WEEKS && Number(week) >= 1) {
       setCreateMatchDisabled(false);
     }
     else {
@@ -38,18 +39,9 @@ export function CreateMatchScreen(props: CreateMatchScreenProps) {
 
   } , [leagueName, week, teamName]);
 
-  const handleLeagueName = (text: string): void => {
-    setLeagueName(text);
-  }
-
-  const handleWeek = (text: string): void => {
-    setWeek(text);
-  }
-
-
-  const handleTeamName = (text: string): void => {
-    setTeamName(text);
-  }
+  const handleLeagueName = (text: string): void => setLeagueName(text);
+  const handleWeek = (text: string): void => setWeek(text);
+  const handleTeamName = (text: string): void => setTeamName(text);
 
   return (
     <ScrollView>
@@ -70,10 +62,16 @@ export function CreateMatchScreen(props: CreateMatchScreenProps) {
           fontFamily={typography.fonts.poppins.bold}
           textAlign="center"
           paddingTop={30}
-          marginBottom={59}
+          marginBottom={13}
         >
           Create Match
         </Text>
+
+        <TeamAvatar 
+          navigation={props.navigation}
+          height={100}
+          width={100}
+        />
 
         <FormControl
           isDisabled={false}
@@ -82,7 +80,35 @@ export function CreateMatchScreen(props: CreateMatchScreenProps) {
           isRequired={false}
           width="90%"
           gap={31}
+          marginTop={13}
         >
+
+          <View>
+            <FormControlLabel mb="$1"
+              marginHorizontal={30}
+            >
+              <FormControlLabelText
+                color={colors.text}
+                fontSize={18}
+                fontFamily={typography.fonts.poppins.semiBold}
+              >
+                Team Name
+              </FormControlLabelText>
+            </FormControlLabel>
+            <Input
+              marginHorizontal={30}
+            >
+              <InputField 
+                type="text"   
+                color={colors.text}
+                fontSize={18}
+                fontFamily={typography.fonts.poppins.normal}
+                placeholder="Enter your team's name..." 
+                maxLength={20}
+                onChangeText={handleTeamName}
+              />
+            </Input>
+          </View>
 
           <View>
             <FormControlLabel mb="$1"
@@ -141,35 +167,7 @@ export function CreateMatchScreen(props: CreateMatchScreenProps) {
             </Input>
           </View>
 
-          <View>
-            <FormControlLabel mb="$1"
-              marginHorizontal={30}
-            >
-              <FormControlLabelText
-                color={colors.text}
-                fontSize={18}
-                fontFamily={typography.fonts.poppins.semiBold}
-              >
-                Team Name
-              </FormControlLabelText>
-            </FormControlLabel>
-            <Input
-              marginHorizontal={30}
-            >
-              <InputField 
-                type="text"   
-                color={colors.text}
-                fontSize={18}
-                fontFamily={typography.fonts.poppins.normal}
-                placeholder="Enter your team's name..." 
-                maxLength={20}
-                onChangeText={handleTeamName}
-              />
-            </Input>
-          </View>
-
           <Button
-            // size="md"
             variant="solid"
             action="primary"
             height={50}
