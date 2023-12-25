@@ -77,11 +77,12 @@ export function TeamAvatar(props: TeamAvatarProps){
             borderColor={colors.text}
             borderWidth={2}
           >
-            <AvatarFallbackText>Stinkball</ AvatarFallbackText>
+            <AvatarFallbackText>Avatar</ AvatarFallbackText>
             <AvatarImage 
               source={{
                 uri: avatar
               }}
+              alt='Avatar'
             />
           </Avatar>
         </Button>
@@ -129,6 +130,7 @@ export function TeamAvatar(props: TeamAvatarProps){
             >
               {AVATAR_LIST.map((avatarLink, index) => (
                 <Button
+                  key={index}
                   height={SELECT_AVATAR_DIM}
                   width={SELECT_AVATAR_DIM}
                   borderRadius={50}
@@ -145,6 +147,7 @@ export function TeamAvatar(props: TeamAvatarProps){
                       source={{
                         uri: avatarLink
                       }}
+                      alt='avatar'
                     />
                   </Avatar>
                 </Button>
@@ -167,12 +170,9 @@ export function TeamAvatar(props: TeamAvatarProps){
               </ButtonText>
             </Button>
           </ ModalFooter>
-
-          <ModalCloseButton></ModalCloseButton>
         </ModalContent>
-        
-      </Modal>
 
+      </Modal>
     </View>
   );
 };
