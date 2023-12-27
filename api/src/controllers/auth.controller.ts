@@ -10,14 +10,17 @@ export class AuthController {
 
   public signUp = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const userData: CreateUserDto = req.body;
-      const signUpUserData: User = await this.auth.signup(userData);
-     
-      res.status(201).json({ data: signUpUserData, message: 'signup' });
+        const userData: CreateUserDto = req.body;
+        const signUpUserData: User = await this.auth.signup(userData);
+
+        // Extract only id and email from the signUpUserData
+        const { id, email } = signUpUserData;
+
+        res.status(201).json({ data: { id, email }, message: 'signup' });
     } catch (error) {
-      next(error);
+        next(error);
     }
-  };
+};
 
   public logIn = async (req: Request, res: Response, next: NextFunction) => {
     try {

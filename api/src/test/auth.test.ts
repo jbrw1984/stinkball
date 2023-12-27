@@ -43,10 +43,9 @@ describe('Testing Auth', () => {
 
       expect(result.status).toEqual(201);
       expect(result.body.data.email).toEqual(userData.email); 
-      expect(result.body.data.password).toEqual(hashedPassword);
     });
     
-
+    
     it('response should have exception', async () => {
       const userData: CreateUserDto = {
         email: 'test@email.com',
@@ -69,6 +68,7 @@ describe('Testing Auth', () => {
       expect(result.status).toEqual(409);
       expect(result.body.message).toEqual(`This email ${userData.email} already exists`); 
     });
+    
   });
 
   describe('[POST] /login', () => {
