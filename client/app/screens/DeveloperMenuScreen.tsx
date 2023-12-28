@@ -59,6 +59,7 @@ export function DeveloperMenuScreen(props: DeveloperMenuScreenProps) {
           variant="solid"
           action="primary"
           marginHorizontal={20}
+          onPress={() => props.navigation.navigate('CreateMatch')}
         >
           <ButtonText fontFamily={typography.fonts.poppins.medium}>Create Match Screen </ButtonText>
           <ButtonIcon as={PlusCircle} />
