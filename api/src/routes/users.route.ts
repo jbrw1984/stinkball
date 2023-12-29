@@ -16,9 +16,9 @@ export class UserRoute implements Routes {
   private initializeRoutes() {
     this.router.get(`${this.path}`, this.user.getUsers);
     this.router.get(`${this.path}/:id(\\d+)`, this.user.getUserById);
+    // Route used when user logs in.
     // this.router.post(`${this.path}`, ValidationMiddleware(CreateUserDto, 'body'), this.user.createUser);
     // this.router.put(`${this.path}/:id(\\d+)`, ValidationMiddleware(CreateUserDto, 'body', true), this.user.updateUser);
-    this.router.post(`${this.path}`, ValidationMiddleware(CreateUserDto), this.user.createUser);
     this.router.put(`${this.path}/:id(\\d+)`, ValidationMiddleware(UpdateUserDto, true), this.user.updateUser);
     this.router.delete(`${this.path}/:id(\\d+)`, this.user.deleteUser);
   }
