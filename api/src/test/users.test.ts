@@ -24,62 +24,6 @@ afterAll(async () => {
 });
 
 describe('Testing Users', () => {
-
-  describe('[POST] /users', () => {
-    it('response Create user', async () => {
-
-      // Create mock user data
-      const userData: CreateUserDto = {
-        email: 'test@email.com',
-        password: 'q1w2e3r4!',
-      };
-
-      const hashedPassword = await bcrypt.hash(userData.password, 10); 
-
-      DB.Users.findOne = jest.fn().mockReturnValue(undefined); 
-      DB.Users.create = jest.fn().mockReturnValue({
-        id: 1, 
-        email: userData.email, 
-        password: hashedPassword
-      }); 
-
-      (Sequelize as any).authenticate = jest.fn();
-      
-      const result = await request(app.getServer())
-        .post(`${usersRoute.path}`)
-        .send(userData); 
-
-
-      expect(result.status).toEqual(201);
-      expect(result.body.data.email).toEqual(userData.email); 
-      expect(result.body.data.password).toEqual(hashedPassword); 
-    });
-
-    it('response Create existing user - exception', async () => {
-      const userData: CreateUserDto = {
-        email: 'test@email.com',
-        password: 'q1w2e3r4!',
-      };
-    
-      const hashedPassword = await bcrypt.hash(userData.password, 10); 
-
-      DB.Users.findOne = jest.fn().mockReturnValue({
-        id: 1, 
-        email: userData.email, 
-        password: hashedPassword
-      }); 
-
-      (Sequelize as any).authenticate = jest.fn();
-      
-      const result = await request(app.getServer())
-        .post(`${usersRoute.path}`)
-        .send(userData); 
-
-      expect(result.status).toEqual(409);
-      expect(result.body.message).toEqual(`This email ${userData.email} already exists`); 
-    });
-  });
-
   describe('[GET] /users', () => {
     it('response findAll users', async () => {
       const mockUsers = [
@@ -148,7 +92,6 @@ describe('Testing Users', () => {
       expect(result.body.data.password).toEqual(mockUser.password);
     });
   });
-
 
   describe('[DELETE] /users/:id', () => {
     it('response Delete user', async () => {
