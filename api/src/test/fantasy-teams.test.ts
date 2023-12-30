@@ -24,22 +24,32 @@ import { CreateFantasyTeamDto, UpdateFantasyTeamDto } from '@/dtos/fantasy-teams
 import exp from 'constants';
 import { HttpException } from '@/exceptions/httpException';
 import { DB } from '@database';
+import { AuthRoute } from '@/routes/auth.route';
+import { CreateUserDto } from '@/dtos/users.dto';
 
 // Global Variables
 const fantasyTeamRoute = new FantasyTeamRoute();
-const app = new App([fantasyTeamRoute]);
-const fantasyteams = fantasyTeamRoute.fantasyTeams.fantasyteam;
+const authRoute = new AuthRoute();
+const app = new App([fantasyTeamRoute, authRoute]);
+let userLogIn;
 
-beforeEach(() => {
-  jest.clearAllMocks(); // Reset all mock function calls
-});
-
-beforeAll(() => {
+beforeAll( async () => {
+  await DB.Users.truncate();
   /**
    * We NEED
    * 
    * 1 User logged in
    */
+
+  const userData: CreateUserDto = {
+    email: "example@gmail.com",
+    password: "123456789"
+  }
+
+  // SignUp User
+  const signUp = await request(app.getServer()).post('/signup').send(userData);
+  // Login User
+  userLogIn = await request(app.getServer()).post('/login').send(userData);
 });
 
 afterAll(async () => {
@@ -48,7 +58,9 @@ afterAll(async () => {
 
 describe('Testing Fantasy Teams', () => {
   describe('[POST] /fantasy-teams', () => {
-    
+    it('Create Fantasy Team Success', async () => {
+      console.log(userLogIn);
+    }); 
   });
 });
 
