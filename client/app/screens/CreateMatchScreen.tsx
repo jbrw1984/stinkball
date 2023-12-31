@@ -57,31 +57,38 @@ export function CreateMatchScreen(props: CreateMatchScreenProps) {
         minHeight="100%"
       
       >
-
-        <Button 
-          // onPress={} 
-          variant="link" 
-          p="$0" 
-          size="xl" 
+        <View
+          flexDirection="row"
+          alignItems="center"
+          justifyContent='center'
+          position='relative'  
         >
-          <Icon 
-            color="$white" 
+          <Button 
+            onPress={() => props.navigation.navigate('MatchList')} 
+            variant="link" 
+            p="$0" 
             size="xl" 
-            mr="$10" 
-            as={LucideChevronLeft} 
-          />
-        </Button>
-
-        <Text
-          color={colors.text}
-          fontSize={32}
-          fontFamily={typography.fonts.poppins.bold}
-          textAlign="center"
-          paddingTop={30}
-          marginBottom={13}
-        >
-          Create Match
-        </Text>
+            position='absolute'
+            left={-50}
+          >
+            <Icon 
+              color="$white" 
+              size="xl" 
+              mr="$10" 
+              as={LucideChevronLeft} 
+            />
+          </Button>
+          <Text
+            color={colors.text}
+            fontSize={32}
+            fontFamily={typography.fonts.poppins.bold}
+            textAlign="center"
+            paddingTop={30}
+            marginBottom={13}
+          >
+            Create Match
+          </Text>
+        </View>
 
         <TeamAvatar 
           navigation={props.navigation}
