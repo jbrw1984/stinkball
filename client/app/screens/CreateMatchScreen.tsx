@@ -62,11 +62,13 @@ export function CreateMatchScreen(props: CreateMatchScreenProps) {
           alignItems="center"
           justifyContent='center'
           position='relative'  
+          marginTop={30}
+          marginBottom={13}  
+
         >
           <Button 
             onPress={() => props.navigation.navigate('MatchList')} 
             variant="link" 
-            p="$0" 
             size="xl" 
             position='absolute'
             left={-50}
@@ -74,17 +76,16 @@ export function CreateMatchScreen(props: CreateMatchScreenProps) {
             <Icon 
               color="$white" 
               size="xl" 
-              mr="$10" 
               as={LucideChevronLeft} 
             />
           </Button>
+
           <Text
             color={colors.text}
             fontSize={32}
+            lineHeight={40}
             fontFamily={typography.fonts.poppins.bold}
             textAlign="center"
-            paddingTop={30}
-            marginBottom={13}
           >
             Create Match
           </Text>
