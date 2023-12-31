@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import { Button, ButtonText, ScrollView, FormControl, FormControlLabel, FormControlLabelText, Input, InputField, View, Text} from "@gluestack-ui/themed";
+import { Button, ButtonText, ScrollView, FormControl, FormControlLabel, FormControlLabelText, Input, InputField, View, Text, Icon} from "@gluestack-ui/themed";
 import { AppStackParamList } from 'app/navigators/AppNavigator';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { colors, typography} from "app/theme"
 import { TeamAvatar } from 'app/components/TeamAvatar';
+import { LucideChevronLeft } from 'lucide-react-native';
 
 type CreateMatchScreenNavigationProp = NativeStackNavigationProp<
   AppStackParamList,
@@ -56,6 +57,21 @@ export function CreateMatchScreen(props: CreateMatchScreenProps) {
         minHeight="100%"
       
       >
+
+        <Button 
+          // onPress={} 
+          variant="link" 
+          p="$0" 
+          size="xl" 
+        >
+          <Icon 
+            color="$white" 
+            size="xl" 
+            mr="$10" 
+            as={LucideChevronLeft} 
+          />
+        </Button>
+
         <Text
           color={colors.text}
           fontSize={32}
