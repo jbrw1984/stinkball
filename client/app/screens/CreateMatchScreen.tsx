@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import { Button, ButtonText, ScrollView, FormControl, FormControlLabel, FormControlLabelText, Input, InputField, View, Text} from "@gluestack-ui/themed";
+import { Button, ButtonText, ScrollView, FormControl, FormControlLabel, FormControlLabelText, Input, InputField, View, Text, Icon} from "@gluestack-ui/themed";
 import { AppStackParamList } from 'app/navigators/AppNavigator';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { colors, typography} from "app/theme"
 import { TeamAvatar } from 'app/components/TeamAvatar';
+import { LucideChevronLeft } from 'lucide-react-native';
 
 type CreateMatchScreenNavigationProp = NativeStackNavigationProp<
   AppStackParamList,
@@ -56,16 +57,39 @@ export function CreateMatchScreen(props: CreateMatchScreenProps) {
         minHeight="100%"
       
       >
-        <Text
-          color={colors.text}
-          fontSize={32}
-          fontFamily={typography.fonts.poppins.bold}
-          textAlign="center"
-          paddingTop={30}
-          marginBottom={13}
+        <View
+          flexDirection="row"
+          alignItems="center"
+          justifyContent='center'
+          position='relative'  
+          marginTop={30}
+          marginBottom={13}  
+
         >
-          Create Match
-        </Text>
+          <Button 
+            onPress={() => props.navigation.navigate('MatchList')} 
+            variant="link" 
+            size="xl" 
+            position='absolute'
+            left={-50}
+          >
+            <Icon 
+              color="$white" 
+              size="xl" 
+              as={LucideChevronLeft} 
+            />
+          </Button>
+
+          <Text
+            color={colors.text}
+            fontSize={32}
+            lineHeight={40}
+            fontFamily={typography.fonts.poppins.bold}
+            textAlign="center"
+          >
+            Create Match
+          </Text>
+        </View>
 
         <TeamAvatar 
           navigation={props.navigation}
