@@ -74,24 +74,21 @@ Database will store user information, NFL players, fantasy teams, and Stinkball 
 **Fantasy Team Model**
 ```
 {
-    "id": "string",
+    "id": "number",
     "team_name": "string",
-    "owner": "string",
+    "owner": "number",
     "logo": "string"
     "week": "number",
     "points": "number",
 
-    "positions": {
-    "qb": "string",
-    "rb1": "string",
-    "rb2": "string",
-    "wr1": "string",
-    "wr2": "string",
-    "te": "string",
-    "flex": "string",
-    "k": "string",
-    "dst": "string",
-  }
+    "qb": "number",
+    "rb1": "number",
+    "rb2": "number",
+    "wr1": "number",
+    "wr2": "number",
+    "te": "number",
+    "k": "number",
+    "dst": "number",
 }
 ```
 
