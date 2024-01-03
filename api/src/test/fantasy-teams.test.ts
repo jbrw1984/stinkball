@@ -1,9 +1,6 @@
 /**
  * TESTS NEEDED
  * 
- * Create Fantasy Team (Success)
- * Get Fantasy Team (Success)
- * Get Fantasy Team (Error)
  * Update Fantasy Team - qb (Success)
  * Update Fantasy Team - rb1 (Success)
  * Update Fantasy Team - rb2 (Success)
@@ -26,7 +23,6 @@ import { HttpException } from '@/exceptions/httpException';
 import { DB } from '@database';
 import { AuthRoute } from '@/routes/auth.route';
 import { CreateUserDto } from '@/dtos/users.dto';
-import { User } from '@/interfaces/users.interface';
 
 // Global Variables
 const fantasyTeamRoute = new FantasyTeamRoute();
@@ -34,9 +30,25 @@ const authRoute = new AuthRoute();
 const app = new App([fantasyTeamRoute, authRoute]);
 let userCookie;
 
+const mockFantasyTeam: CreateFantasyTeamDto = {
+  team_name: "Team 1",
+  owner: 1,
+  logo: "teamlogo",
+  points: 0,
+  qb: null,
+  rb1: null,
+  rb2: null,
+  wr1: null,
+  wr2: null,
+  te: null,
+  k: null,
+  dst: null,
+}
+
 beforeAll( async () => {
   // Clear out existing users from the database.
   await DB.Users.truncate();
+  await DB.FantasyTeams.truncate();
 
   const userData: CreateUserDto = {
     email: "example@gmail.com",
@@ -58,21 +70,6 @@ afterAll(async () => {
 describe('Testing Fantasy Teams', () => {
   describe('[POST] /fantasy-teams', () => {
     it('Create Fantasy Team Success (Mocking Form Submission)', async () => {
-      const mockFantasyTeam: CreateFantasyTeamDto = {
-        team_name: "Team 1",
-        owner: 1,
-        logo: "teamlogo",
-        points: 0,
-        qb: null,
-        rb1: null,
-        rb2: null,
-        wr1: null,
-        wr2: null,
-        te: null,
-        k: null,
-        dst: null,
-      }
-
       const result = await request(app.getServer())
         .post('/fantasy-teams')
         .set('Cookie', userCookie)
@@ -87,6 +84,52 @@ describe('Testing Fantasy Teams', () => {
       expect(result.body.data.owner).toEqual(mockFantasyTeam.owner);
       expect(result.body.data.wr2).toEqual(null);
     }); 
+
+    it('Create Fantasy Team Missing Auth Token (Mocking Form Submission)', async () => {
+      const result = await request(app.getServer())
+        .post('/fantasy-teams')
+        .send(mockFantasyTeam);
+
+      // Check values.
+      expect(result.status).toEqual(404);
+      expect(result.body.message).toEqual('Authentication token missing');
+    });
+  });
+
+  describe('[GET] /fantay-teams/:id', () => {
+    it('GET fantasy team success', async () => {
+      const result = await request(app.getServer())
+        .get(`${fantasyTeamRoute.path}/1`)
+        .set('Cookie', userCookie);
+
+      // Check values.
+      expect(result.status).toEqual(200);
+      expect(result.body.message).toEqual('findOne');
+      expect(result.body.data.team_name).toEqual(mockFantasyTeam.team_name);
+      expect(result.body.data.owner).toEqual(mockFantasyTeam.owner);
+      expect(result.body.data.logo).toEqual(mockFantasyTeam.logo);
+      expect(result.body.data.owner).toEqual(mockFantasyTeam.owner);
+      expect(result.body.data.rb1).toEqual(null);
+    });
+
+    it("GET fantasy team exception (Team doesn't exist)", async () => {
+      const result = await request(app.getServer())
+        .get(`${fantasyTeamRoute.path}/2`) // Check id 2 which does not exist
+        .set('Cookie', userCookie);
+
+      // Check values.
+      expect(result.status).toEqual(409);
+      expect(result.body.message).toEqual("Fantasy Team doesn't exist");
+    });
+
+    it('GET fantasy team exception (Missing auth token)', async () => {
+      const result = await request(app.getServer())
+        .get(`${fantasyTeamRoute.path}/1`) 
+
+      // Check values.
+      expect(result.status).toEqual(404);
+      expect(result.body.message).toEqual('Authentication token missing');
+    });
   });
 });
 

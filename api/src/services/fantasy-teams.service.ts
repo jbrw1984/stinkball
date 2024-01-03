@@ -12,4 +12,11 @@ export class FantasyTeamService {
     const newTeam: FantasyTeam = await DB.FantasyTeams.create(fantasyTeam);
     return newTeam;
   }
+
+  public async findFantasyTeamById(id: number): Promise<FantasyTeam> {
+    const findFantasyTeam: FantasyTeam = await DB.FantasyTeams.findByPk(id);
+    if (!findFantasyTeam) throw new HttpException(409, "Fantasy Team doesn't exist");
+
+    return findFantasyTeam;
+  }
 }

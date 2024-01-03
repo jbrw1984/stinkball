@@ -17,4 +17,15 @@ export class FantasyTeamController {
       next(error);
     }
   }
+
+  public getFantasyTeamById = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const fantasyTeamId = Number(req.params.id);
+      const findOneFantasyTeamData: FantasyTeam = await this.fantasyteam.findFantasyTeamById(fantasyTeamId);
+
+      res.status(200).json({ data: findOneFantasyTeamData, message: 'findOne' });
+    } catch (error) {
+      next(error);
+    }
+  }
 }

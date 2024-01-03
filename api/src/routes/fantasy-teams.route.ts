@@ -16,5 +16,6 @@ export class FantasyTeamRoute implements Routes {
 
   private initializeRoutes() {
     this.router.post(`${this.path}`, AuthMiddleware, ValidationMiddleware(CreateFantasyTeamDto), this.fantasyTeams.createFantasyTeam);
+    this.router.get(`${this.path}/:id(\\d+)`, AuthMiddleware,  this.fantasyTeams.getFantasyTeamById);
   }
 }
