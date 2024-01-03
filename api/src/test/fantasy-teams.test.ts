@@ -26,20 +26,17 @@ import { HttpException } from '@/exceptions/httpException';
 import { DB } from '@database';
 import { AuthRoute } from '@/routes/auth.route';
 import { CreateUserDto } from '@/dtos/users.dto';
+import { User } from '@/interfaces/users.interface';
 
 // Global Variables
 const fantasyTeamRoute = new FantasyTeamRoute();
 const authRoute = new AuthRoute();
 const app = new App([fantasyTeamRoute, authRoute]);
-let userLogIn;
+let userCookie;
 
 beforeAll( async () => {
+  // Clear out existing users from the database.
   await DB.Users.truncate();
-  /**
-   * We NEED
-   * 
-   * 1 User logged in
-   */
 
   const userData: CreateUserDto = {
     email: "example@gmail.com",
@@ -49,7 +46,9 @@ beforeAll( async () => {
   // SignUp User
   const signUp = await request(app.getServer()).post('/signup').send(userData);
   // Login User
-  userLogIn = await request(app.getServer()).post('/login').send(userData);
+  const userLogIn = await request(app.getServer()).post('/login').send(userData);
+
+  userCookie = userLogIn.header['set-cookie'];
 });
 
 afterAll(async () => {
@@ -58,8 +57,35 @@ afterAll(async () => {
 
 describe('Testing Fantasy Teams', () => {
   describe('[POST] /fantasy-teams', () => {
-    it('Create Fantasy Team Success', async () => {
-      console.log(userLogIn);
+    it('Create Fantasy Team Success (Mocking Form Submission)', async () => {
+      const mockFantasyTeam: CreateFantasyTeamDto = {
+        team_name: "Team 1",
+        owner: 1,
+        logo: "teamlogo",
+        points: 0,
+        qb: null,
+        rb1: null,
+        rb2: null,
+        wr1: null,
+        wr2: null,
+        te: null,
+        k: null,
+        dst: null,
+      }
+
+      const result = await request(app.getServer())
+        .post('/fantasy-teams')
+        .set('Cookie', userCookie)
+        .send(mockFantasyTeam);
+
+      // Check values.
+      expect(result.status).toEqual(201);
+      expect(result.body.message).toEqual('created');
+      expect(result.body.data.team_name).toEqual(mockFantasyTeam.team_name);
+      expect(result.body.data.owner).toEqual(mockFantasyTeam.owner);
+      expect(result.body.data.logo).toEqual(mockFantasyTeam.logo);
+      expect(result.body.data.owner).toEqual(mockFantasyTeam.owner);
+      expect(result.body.data.wr2).toEqual(null);
     }); 
   });
 });
