@@ -5,14 +5,23 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { colors, typography} from "app/theme"
 import { MatchScorePreview } from "app/components/MatchScorePreview";
 import { MatchScorePreviewType, MatchScorePreviewData } from "app/components/MatchScorePreviewTempData/MatchScorePreviewData";
+import { LucideChevronLeft } from 'lucide-react-native';
+import { RouteProp } from '@react-navigation/native';
 
 type MatchDetailsScreenNavigationProp = NativeStackNavigationProp<
   AppStackParamList,
-  'Welcome'
+  'MatchDetails'
 >
+
+type MatchDetailsScreenRouteProp = RouteProp<
+  AppStackParamList, 
+  'MatchDetails'
+>;
+
 
 export interface MatchDetailsScreenProps {
   navigation: MatchDetailsScreenNavigationProp;
+  route: MatchDetailsScreenRouteProp
 }
 
 /**
@@ -21,6 +30,15 @@ export interface MatchDetailsScreenProps {
  * @component
  */
 export function MatchDetailsScreen(props: MatchDetailsScreenProps) {
+
+  /**
+   * NOTE: An error will be triggered if you enter the match details 
+   * page through the developer menu. This is because the developer menu
+   * doesn't pass in a specific match's information through its navigate 
+   * hook. To make a quick fix for this, I put a default value of an empty
+   * object for this scenario. 
+   */
+  const { currentMatchState = {} } = props.route.params ?? {};
 
   return (
     <ScrollView>
@@ -35,9 +53,43 @@ export function MatchDetailsScreen(props: MatchDetailsScreenProps) {
         minHeight="100%"
       
       >
+        <View
+          flexDirection="row"
+          alignItems="center"
+          justifyContent='center'
+          position='relative'  
+          marginTop={30}
+          marginBottom={13}  
+
+        >
+          <Button 
+            onPress={() => props.navigation.navigate('MatchList')} 
+            variant="link" 
+            size="xl" 
+            position='absolute'
+            left={-50}
+          >
+            <Icon 
+              color="$white" 
+              size="xl" 
+              as={LucideChevronLeft} 
+            />
+          </Button>
+
+          <Text
+            color={colors.text}
+            fontSize={32}
+            lineHeight={40}
+            fontFamily={typography.fonts.poppins.bold}
+            textAlign="center"
+          >
+            Match Name
+          </Text>
+        </View>
+
 
         <MatchScorePreview 
-            matchDetails={MatchScorePreviewData[0]} 
+            matchDetails={currentMatchState} 
             isNavigtionActive={false}
         /> 
 

@@ -18,16 +18,20 @@ interface MatchScorePreviewProps {
 }
 
 export const MatchScorePreview: React.FC<MatchScorePreviewProps> = ({ matchDetails, navigation, isNavigtionActive }) => {
-
-
   /**
    * Function to navigate to the corresponding match's details page. 
+   * Also, it passes the matchDetails to the Match Details screen in 
+   * the form of the variable 'currentMatchState'. 
    * 
    * TODO: implement UX to go to that match's specific page. 
+   * TODO: Currently using React Navigation to pass in the specific 
+   *       match's info. In future, transition to using MobX-State-Tree
    */
   const handleMatchDetailPress = () => {
     if (isNavigtionActive && navigation) {
-      navigation.navigate("MatchDetails"); 
+      navigation.navigate("MatchDetails", {
+        currentMatchState: matchDetails
+      }); 
     }
   }
 
