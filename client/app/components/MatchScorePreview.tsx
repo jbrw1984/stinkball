@@ -1,16 +1,39 @@
 import { Pressable, Image, View, Text, ViewStyle, TextStyle, ImageStyle } from "react-native";
 import { MatchScorePreviewType } from "./MatchScorePreviewTempData/MatchScorePreviewData";
 import { typography } from "app/theme";
+import { AppStackParamList } from "app/navigators/AppNavigator";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+
+
+type MatchListNavigationProp = NativeStackNavigationProp<
+  AppStackParamList,
+  'MatchList'
+>
 
 // Mock interface this way we save time when linking up client and api.
 interface MatchScorePreviewProps {
   matchDetails: MatchScorePreviewType;
+  navigation?: MatchListNavigationProp;
+  isNavigtionActive: boolean; 
 }
 
-export const MatchScorePreview: React.FC<MatchScorePreviewProps> = ({ matchDetails }) => {
+export const MatchScorePreview: React.FC<MatchScorePreviewProps> = ({ matchDetails, navigation, isNavigtionActive }) => {
+
+
+  /**
+   * Function to navigate to the corresponding match's details page. 
+   * 
+   * TODO: implement UX to go to that match's specific page. 
+   */
+  const handleMatchDetailPress = () => {
+    if (isNavigtionActive && navigation) {
+      navigation.navigate("MatchDetails"); 
+    }
+  }
+
   {/* Each component gets its data from the matchDetails prop */}
   return (
-    <Pressable style={$mainContainer}>
+    <Pressable style={$mainContainer} disabled={!isNavigtionActive} onPress={handleMatchDetailPress}>
       <Image style={$teamLogo} source={matchDetails.team1ImageSource} resizeMode="contain"/>
       <View style={[$detailsContainer, {paddingRight: 5, marginLeft: -10}]}>
         {/* Need to change so text overflows */}

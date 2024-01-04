@@ -36,7 +36,10 @@ export function MatchDetailsScreen(props: MatchDetailsScreenProps) {
       
       >
 
-        <MatchScorePreview matchDetails={MatchScorePreviewData[0]}/> 
+        <MatchScorePreview 
+            matchDetails={MatchScorePreviewData[0]} 
+            isNavigtionActive={false}
+        /> 
 
 
       </View>

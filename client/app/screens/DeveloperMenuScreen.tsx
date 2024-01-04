@@ -70,6 +70,7 @@ export function DeveloperMenuScreen(props: DeveloperMenuScreenProps) {
           variant="solid"
           action="primary"
           marginHorizontal={20}
+          onPress={() => props.navigation.navigate('MatchDetails')}
         >
           <ButtonText fontFamily={typography.fonts.poppins.medium}>Match Details Screen </ButtonText>
           <ButtonIcon as={Swords} />
