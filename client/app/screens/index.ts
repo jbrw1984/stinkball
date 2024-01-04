@@ -4,4 +4,6 @@ export * from "./ErrorScreen/ErrorBoundary"
 export * from "./MatchListScreen"
 export * from "./DeveloperMenuScreen"
 export * from "./CreateMatchScreen"
+export * from "./MatchDetailsScreen"
+
 
