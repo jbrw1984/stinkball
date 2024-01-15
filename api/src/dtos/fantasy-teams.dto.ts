@@ -23,7 +23,7 @@ export class CreateFantasyTeamDto {
   public wr1: number;
   public wr2: number;
   public te: number;
-  public k: number;
+  public pk: number;
   public dst: number;
 }
 
@@ -37,6 +37,6 @@ export class UpdateFantasyTeamDto {
   public wr1: number;
   public wr2: number;
   public te: number;
-  public k: number;
+  public pk: number;
   public dst: number;
 }

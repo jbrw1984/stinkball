@@ -2,48 +2,12 @@ import request from 'supertest';
 import { App } from '@/app';
 import { DB } from '@database';
 import { NFLPlayerRoute } from '@/routes/nfl-players.route';
-import { NFLPlayerDTO } from '@/dtos/nfl-players.dto';
 import { NFLPlayer } from '@/interfaces/nfl-players.interface';
+import { player1, player2, player3, player4, player5 } from './fantasy-players-list';
 
 // Global Variables
 const nflPlayersRoute = new NFLPlayerRoute();
 const app = new App([nflPlayersRoute]);
-
-// Create five mock NFL Players
-const player1: NFLPlayerDTO = {
-  player_name: "Player 1",
-  teamId: 1,
-  position: "Quarterback",
-  player_portrait: "Image 1"
-}
-
-const player2: NFLPlayerDTO = {
-  player_name: "Player 2",
-  teamId: 2,
-  position: "Running Back",
-  player_portrait: "Image 2"
-}
-
-const player3: NFLPlayerDTO = {
-  player_name: "Player 3",
-  teamId: 3,
-  position: "Wide Receiver",
-  player_portrait: "Image 3"
-}
-
-const player4: NFLPlayerDTO = {
-  player_name: "Player 4",
-  teamId: 4,
-  position: "Tight End",
-  player_portrait: "Image 4"
-}
-
-const player5: NFLPlayerDTO = {
-  player_name: "Player 5",
-  teamId: 5,
-  position: "Kicker",
-  player_portrait: "Image 5"
-}
 
 beforeAll(async () => {
   // Remove all players from NFLPlayers table in DB.
@@ -98,7 +62,7 @@ describe("Testing NFL Players", () => {
         id: 3,
         player_name: "Player 3",
         teamId: 3,
-        position: "Wide Receiver",
+        position: "WR",
         player_portrait: "Image 3",
       };
 

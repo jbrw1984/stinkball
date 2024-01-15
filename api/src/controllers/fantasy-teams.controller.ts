@@ -28,4 +28,16 @@ export class FantasyTeamController {
       next(error);
     }
   }
+
+  public updateFantasyTeam = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const fantasyTeamId = Number(req.params.id);
+      const fantasyTeamData: UpdateFantasyTeamDto = req.body;
+      const updateFantasyTeamData: FantasyTeam = await this.fantasyteam.updateFantasyTeam(fantasyTeamId, fantasyTeamData);
+
+      res.status(200).json({ data: updateFantasyTeamData, message: 'updated' });
+    } catch (error) {
+      next(error);
+    } 
+  }
 }

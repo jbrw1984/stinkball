@@ -11,6 +11,6 @@ export interface FantasyTeam {
   wr1: number;
   wr2: number;
   te: number;
-  k: number;
+  pk: number;
   dst: number;
 }

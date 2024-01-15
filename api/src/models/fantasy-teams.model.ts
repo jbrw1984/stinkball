@@ -2,7 +2,7 @@ import { Sequelize, DataTypes, Model, Optional } from 'sequelize';
 import { FantasyTeam } from '@/interfaces/fantasy-teams';
 
 export type FantasyTeamCreationAttributes = Optional<FantasyTeam, 'id' | 'team_name' | 'owner' |
-  'logo' | 'points' | 'qb' | 'wr1' | 'wr2' | 'rb1' | 'rb2' | 'te' | 'k' | 'dst'>;
+  'logo' | 'points' | 'qb' | 'wr1' | 'wr2' | 'rb1' | 'rb2' | 'te' | 'pk' | 'dst'>;
 
 
 export class FantasyTeamModel extends Model<FantasyTeam, FantasyTeamCreationAttributes> implements FantasyTeam {
@@ -18,7 +18,7 @@ export class FantasyTeamModel extends Model<FantasyTeam, FantasyTeamCreationAttr
   public wr1: number;
   public wr2: number;
   public te: number;
-  public k: number;
+  public pk: number;
   public dst: number;
 
   public readonly createdAt!: Date;
@@ -73,7 +73,7 @@ export default function (sequelize: Sequelize): typeof FantasyTeamModel {
         allowNull: true,
         type: DataTypes.INTEGER,
       },
-      k: {
+      pk: {
         allowNull: true,
         type: DataTypes.INTEGER,
       },
