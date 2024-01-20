@@ -13,6 +13,11 @@ type MatchDetailsScreenNavigationProp = NativeStackNavigationProp<
   'MatchDetails'
 >
 
+/**
+ * Typing for the 'route' prop, which allows us to access any
+ * parameters/state info that's passed into this screen 
+ * through React Navigation navigate method
+ */
 type MatchDetailsScreenRouteProp = RouteProp<
   AppStackParamList, 
   'MatchDetails'
@@ -35,10 +40,10 @@ export function MatchDetailsScreen(props: MatchDetailsScreenProps) {
    * NOTE: An error will be triggered if you enter the match details 
    * page through the developer menu. This is because the developer menu
    * doesn't pass in a specific match's information through its navigate 
-   * hook. To make a quick fix for this, I put a default value of an empty
-   * object for this scenario. 
+   * hook. To make a quick fix for this, I put a default value of the first
+   * sample match in the MatchScorePreviewData array. 
    */
-  const { currentMatchState = {} } = props.route.params ?? {};
+  const { currentMatchState = MatchScorePreviewData[0] } = props.route.params ?? MatchScorePreviewData[0];
 
   return (
     <ScrollView>
