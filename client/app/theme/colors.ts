@@ -36,6 +36,10 @@ export const colors = {
    */
   textDim: palette.neutral400,
   /**
+   * Dark text color.
+   */
+  textBlack: palette.neutral900,
+  /**
    * The secondary color of the screen background.
    */
   secondaryBackground: palette.neutral500,

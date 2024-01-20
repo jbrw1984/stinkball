@@ -7,6 +7,7 @@ import { MatchScorePreview } from "app/components/MatchScorePreview";
 import { MatchScorePreviewType, MatchScorePreviewData } from "app/components/MatchScorePreviewTempData/MatchScorePreviewData";
 import { LucideChevronLeft } from 'lucide-react-native';
 import { RouteProp } from '@react-navigation/native';
+import { PlayerHeadToHead } from 'app/components/PlayerHeadToHead';
 
 type MatchDetailsScreenNavigationProp = NativeStackNavigationProp<
   AppStackParamList,
@@ -97,6 +98,17 @@ export function MatchDetailsScreen(props: MatchDetailsScreenProps) {
             matchDetails={currentMatchState} 
             isNavigtionActive={false}
         /> 
+
+        <PlayerHeadToHead 
+          navigation={props.navigation}
+          position="QB"
+          player1="Patrick Mahomes"
+          player2="Tom Brady"
+          player1TeamShort="KC"
+          player2TeamShort="TB"
+          player1Points={25.5}
+          player2Points={20.1}
+        />
 
 
       </View>
