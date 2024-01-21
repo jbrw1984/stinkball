@@ -13,12 +13,14 @@ type MatchDetailsScreenNavigationProp = NativeStackNavigationProp<
 interface PlayerHeadToHeadProps {
   navigation: MatchDetailsScreenNavigationProp;
   position: string; 
-  player1: string; 
-  player2: string;
-  player1TeamShort: string; 
-  player2TeamShort: string;
+  player1Name: string; 
+  player2Name: string;
+  player1TeamCityShort: string; 
+  player2TeamCityShort: string;
   player1Points: number;
   player2Points: number;
+  player1Portrait: string; 
+  player2Portrait: string; 
 }
 
 type PositionColors = {
@@ -65,6 +67,8 @@ export function PlayerHeadToHead(props: PlayerHeadToHeadProps){
       paddingRight={10}
     >
 
+{/**---------------------------------------------------------------- */}
+
       <View
         flexDirection={"column"}
         alignItems={"flex-start"}
@@ -76,7 +80,7 @@ export function PlayerHeadToHead(props: PlayerHeadToHeadProps){
           fontFamily={typography.fonts.poppins.semiBold}
           fontSize={14}
         >
-          {props.player1}
+          {props.player1Name}
         </Text>
         <Text
           color={colors.text}
@@ -84,9 +88,11 @@ export function PlayerHeadToHead(props: PlayerHeadToHeadProps){
           fontFamily={typography.fonts.poppins.normal}
           fontSize={10}
         >
-          {props.player1TeamShort} • {props.position}
+          {props.player1TeamCityShort} • {props.position}
         </Text>
       </View>
+
+{/**---------------------------------------------------------------- */}
 
       <Text
         color={colors.text}
@@ -96,6 +102,8 @@ export function PlayerHeadToHead(props: PlayerHeadToHeadProps){
       >
         {props.player1Points}
       </Text>
+
+{/**---------------------------------------------------------------- */}
 
       <Box
         bg={positionColors[props.position]}
@@ -116,6 +124,8 @@ export function PlayerHeadToHead(props: PlayerHeadToHeadProps){
         </Text>
       </Box>
 
+{/**---------------------------------------------------------------- */}
+
       <Text
         color={colors.text}
         textAlign='center'
@@ -124,6 +134,8 @@ export function PlayerHeadToHead(props: PlayerHeadToHeadProps){
       >
         {props.player2Points}
       </Text>
+
+{/**---------------------------------------------------------------- */}
 
       <View
         flexDirection={"column"}
@@ -136,7 +148,7 @@ export function PlayerHeadToHead(props: PlayerHeadToHeadProps){
           fontFamily={typography.fonts.poppins.semiBold}
           fontSize={14}
         >
-          {props.player1}
+          {props.player2Name}
         </Text>
         <Text
           color={colors.text}
@@ -144,10 +156,11 @@ export function PlayerHeadToHead(props: PlayerHeadToHeadProps){
           fontFamily={typography.fonts.poppins.normal}
           fontSize={10}
         >
-          {props.player1TeamShort} • {props.position}
+          {props.player2TeamCityShort} • {props.position}
         </Text>
       </View>
 
+{/**---------------------------------------------------------------- */}
 
     </View>
     

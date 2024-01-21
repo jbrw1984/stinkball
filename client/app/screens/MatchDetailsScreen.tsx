@@ -8,6 +8,8 @@ import { MatchScorePreviewType, MatchScorePreviewData } from "app/components/Mat
 import { LucideChevronLeft } from 'lucide-react-native';
 import { RouteProp } from '@react-navigation/native';
 import { PlayerHeadToHead } from 'app/components/PlayerHeadToHead';
+import { USER1_TEAM, USER2_TEAM, PlayerInfo, FantasyTeam, FantasyTeamKey} from 'app/components/PlayerHeadToHeadTempData/PlayerHeadToHeadData';
+
 
 type MatchDetailsScreenNavigationProp = NativeStackNavigationProp<
   AppStackParamList,
@@ -99,7 +101,7 @@ export function MatchDetailsScreen(props: MatchDetailsScreenProps) {
             isNavigtionActive={false}
         /> 
 
-        <PlayerHeadToHead 
+        {/* <PlayerHeadToHead 
           navigation={props.navigation}
           position="QB"
           player1="Patrick Mahomes"
@@ -108,8 +110,28 @@ export function MatchDetailsScreen(props: MatchDetailsScreenProps) {
           player2TeamShort="TB"
           player1Points={25.5}
           player2Points={20.1}
-        />
+        /> */}
 
+        {Object.keys(USER1_TEAM).forEach((key) => {
+          let position = key as FantasyTeamKey;
+
+          let nflPlayer1: PlayerInfo = USER1_TEAM[position];
+          let nflPlayer2: PlayerInfo = USER2_TEAM[position];
+
+          return (
+            <PlayerHeadToHead
+              navigation={props.navigation}
+              position={nflPlayer1.position}
+              player1Name={nflPlayer1.player_name}
+              player2Name={nflPlayer2.player_name}
+              player1TeamCityShort={nflPlayer1.player_team_city_short}
+              player2TeamCityShort={nflPlayer2.player_team_city_short}
+              player1Points={nflPlayer1.player_points}
+              player2Points={nflPlayer2.player_points}
+              player1Portrait={nflPlayer1.player_portrait}
+              player2Portrait={nflPlayer2.player_portrait}
+          />)
+        })}
 
       </View>
     </ScrollView>
