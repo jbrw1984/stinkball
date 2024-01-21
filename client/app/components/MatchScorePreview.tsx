@@ -1,6 +1,6 @@
 import { Pressable, Image, View, Text, ViewStyle, TextStyle, ImageStyle } from "react-native";
 import { MatchScorePreviewType } from "./MatchScorePreviewTempData/MatchScorePreviewData";
-import { typography } from "app/theme";
+import { colors, typography } from "app/theme";
 import { AppStackParamList } from "app/navigators/AppNavigator";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
@@ -63,7 +63,8 @@ const $mainContainer: ViewStyle = {
   height: 120,
   width: 330,
   maxHeight: 120,
-  backgroundColor: "#1D1D1D",
+  // backgroundColor: "#1D1D1D",
+  backgroundColor: colors.secondaryBackground,
   borderRadius: 20,
   flex: 1,
   flexDirection: "row",

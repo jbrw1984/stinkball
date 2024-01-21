@@ -77,7 +77,8 @@ export const MatchListScreen = (props: MatchListProps) => {
 
 // Styling
 const $mainContainer: ViewStyle = {
-  backgroundColor: "#292929", 
+  // backgroundColor: "#292929", 
+  backgroundColor: colors.background,
   flex: 1, 
   flexDirection: "column",
   gap: 10,

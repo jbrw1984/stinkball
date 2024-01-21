@@ -101,18 +101,12 @@ export function MatchDetailsScreen(props: MatchDetailsScreenProps) {
             isNavigtionActive={false}
         /> 
 
-        {/* <PlayerHeadToHead 
-          navigation={props.navigation}
-          position="QB"
-          player1="Patrick Mahomes"
-          player2="Tom Brady"
-          player1TeamShort="KC"
-          player2TeamShort="TB"
-          player1Points={25.5}
-          player2Points={20.1}
-        /> */}
+        <View
+          height={25}
+        >
+        </View>
 
-        {Object.keys(USER1_TEAM).forEach((key) => {
+        {Object.keys(USER1_TEAM).map((key) => {
           let position = key as FantasyTeamKey;
 
           let nflPlayer1: PlayerInfo = USER1_TEAM[position];
@@ -124,6 +118,8 @@ export function MatchDetailsScreen(props: MatchDetailsScreenProps) {
               position={nflPlayer1.position}
               player1Name={nflPlayer1.player_name}
               player2Name={nflPlayer2.player_name}
+              player1NameShort={nflPlayer1.player_name_short}
+              player2NameShort={nflPlayer2.player_name_short}          
               player1TeamCityShort={nflPlayer1.player_team_city_short}
               player2TeamCityShort={nflPlayer2.player_team_city_short}
               player1Points={nflPlayer1.player_points}

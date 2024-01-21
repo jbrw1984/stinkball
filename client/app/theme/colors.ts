@@ -6,7 +6,9 @@ const palette: Record<string, string> = {
   neutral100: "#FFFFFF",
   neutral300: "#D7CEC9",
   neutral400: "#9E9E9E",
-  neutral500: "#292929",
+  // neutral500: "#292929",
+  // neutral500: "#424242",
+  neutral500: "#303030",
   neutral600: "#1D1D1D", 
   neutral900: "#000000",
 

@@ -9,6 +9,7 @@ export type NFLPlayerModel = {
 export type PlayerInfo = {
   id: number;
   player_name: string;
+  player_name_short: string;
   teamId: number;
   position: string;
   player_portrait: string;
@@ -37,6 +38,7 @@ export const USER1_TEAM : FantasyTeam = {
   qb: {
     id: 1, 
     player_name: "Josh Allen", 
+    player_name_short: "J. Allen",
     teamId: 4, 
     position: 'qb', 
     player_portrait: 'https://a.espncdn.com/i/headshots/nfl/players/full/3918298.png', 
@@ -49,6 +51,7 @@ export const USER1_TEAM : FantasyTeam = {
   rb1: {
     id: 1, 
     player_name: "Christian McCaffrey", 
+    player_name_short: "C. McCaffrey",
     teamId: 27, 
     position: 'rb', 
     player_portrait: 'https://a.espncdn.com/i/headshots/nfl/players/full/3117251.png', 
@@ -61,6 +64,7 @@ export const USER1_TEAM : FantasyTeam = {
   rb2: {
     id: 1, 
     player_name: "Kyren Williams", 
+    player_name_short: "K. Williams",
     teamId: 29, 
     position: 'rb', 
     player_portrait: 'https://a.espncdn.com/i/headshots/nfl/players/full/4430737.png', 
@@ -73,6 +77,7 @@ export const USER1_TEAM : FantasyTeam = {
   wr1: {
     id: 1, 
     player_name: "Tyreek Hill", 
+    player_name_short: "T. Hill",
     teamId: 17, 
     position: 'wr', 
     player_portrait: 'https://a.espncdn.com/i/headshots/nfl/players/full/3116406.png', 
@@ -85,6 +90,7 @@ export const USER1_TEAM : FantasyTeam = {
   wr2: {
     id: 1, 
     player_name: "CeeDee Lamb", 
+    player_name_short: "C. Lamb",
     teamId: 9, 
     position: 'wr', 
     player_portrait: 'https://a.espncdn.com/i/headshots/nfl/players/full/4241389.png', 
@@ -97,6 +103,7 @@ export const USER1_TEAM : FantasyTeam = {
   te: {
     id: 1, 
     player_name: "Travis Kelce", 
+    player_name_short: "T. Kelce",
     teamId: 16, 
     position: 'te', 
     player_portrait: 'https://a.espncdn.com/i/headshots/nfl/players/full/15847.png', 
@@ -109,8 +116,9 @@ export const USER1_TEAM : FantasyTeam = {
   dst: {
     id: 1,
     player_name: "NY Giants",
+    player_name_short: "Giants",
     teamId: 21,
-    position: 'd/st',
+    position: 'dst',
     player_portrait: "https://a.espncdn.com/i/teamlogos/nfl/500/nyg.png",
     player_team_name_short: 'Giants',
     player_team_name_long: 'New York Giants',
@@ -121,6 +129,7 @@ export const USER1_TEAM : FantasyTeam = {
   k: {
     id: 1,
     player_name: "Justin Tucker",
+    player_name_short: "J. Tucker",
     teamId: 3,
     position: 'k',
     player_portrait: "https://a.espncdn.com/i/headshots/nfl/players/full/15683.png", 
@@ -136,6 +145,7 @@ export const USER2_TEAM : FantasyTeam = {
   qb: { 
     id: 1, 
     player_name: "Patrick Mahomes", 
+    player_name_short: "P. Mahomes", 
     teamId: 4, 
     position: 'qb', 
     player_portrait: 'https://a.espncdn.com/i/headshots/nfl/players/full/3139477.png', 
@@ -148,6 +158,7 @@ export const USER2_TEAM : FantasyTeam = {
   rb1: {
     id: 1, 
     player_name: "David Montgomery", 
+    player_name_short: "D. Montgomery",
     teamId: 11, 
     position: 'rb', 
     player_portrait: 'https://a.espncdn.com/i/headshots/nfl/players/full/4035538.png', 
@@ -160,6 +171,7 @@ export const USER2_TEAM : FantasyTeam = {
   rb2: {
     id: 1, 
     player_name: "James Cook", 
+    player_name_short: "J. Cook",
     teamId: 4, 
     position: 'rb', 
     player_portrait: 'https://a.espncdn.com/i/headshots/nfl/players/full/4430737.png', 
@@ -172,6 +184,7 @@ export const USER2_TEAM : FantasyTeam = {
   wr1: {
     id: 1, 
     player_name: "DK Metcalf", 
+    player_name_short: "D. Metcalf",
     teamId: 28, 
     position: 'wr', 
     player_portrait: 'https://a.espncdn.com/i/headshots/nfl/players/full/4047650.png', 
@@ -184,6 +197,7 @@ export const USER2_TEAM : FantasyTeam = {
   wr2: {
     id: 1, 
     player_name: "DeVonta Smith", 
+    player_name_short: "D. Smith",
     teamId: 14, 
     position: 'wr', 
     player_portrait: 'https://a.espncdn.com/i/headshots/nfl/players/full/4241478.png', 
@@ -196,6 +210,7 @@ export const USER2_TEAM : FantasyTeam = {
   te: {
     id: 1, 
     player_name: "Sam LaPorta", 
+    player_name_short: "S. LaPorta",
     teamId: 11, 
     position: 'te', 
     player_portrait: 'https://a.espncdn.com/i/headshots/nfl/players/full/4430027.png', 
@@ -208,8 +223,9 @@ export const USER2_TEAM : FantasyTeam = {
   dst: {
     id: 1,
     player_name: "GB Packers",
+    player_name_short: "Packers",
     teamId: 12,
-    position: 'd/st',
+    position: 'dst',
     player_portrait: "https://a.espncdn.com/i/teamlogos/nfl/500/gb.png",
     player_team_name_short: 'Packers',
     player_team_name_long: 'Green Bay Packers',
@@ -220,6 +236,7 @@ export const USER2_TEAM : FantasyTeam = {
   k: {
     id: 1,
     player_name: "Brandon Aubrey",
+    player_name_short: "B. Aubrey",
     teamId: 9,
     position: 'k',
     player_portrait: "https://a.espncdn.com/i/headshots/nfl/players/full/3953687.png",
@@ -327,14 +344,14 @@ export const PLAYER_LIST : NFLPlayerModel[] = [
     id: 1,
     player_name: "NY Giants",
     teamId: 21,
-    position: 'd/st',
+    position: 'dst',
     player_portrait: "https://a.espncdn.com/i/teamlogos/nfl/500/nyg.png"
   }, 
   {
     id: 1,
     player_name: "GB Packers",
     teamId: 12,
-    position: 'd/st',
+    position: 'dst',
     player_portrait: "https://a.espncdn.com/i/teamlogos/nfl/500/gb.png"
   }, 
   {
