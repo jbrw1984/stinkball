@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dimensions } from 'react-native';
 import { VStack, HStack, Text, Button, ButtonText, View, EditIcon, Avatar, AvatarBadge, AvatarFallbackText, AvatarImage, Icon, ButtonIcon, Modal, ModalBackdrop, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Heading, Box } from "@gluestack-ui/themed";
 import { EyeIcon, EyeOffIcon } from 'lucide-react-native';
@@ -28,19 +28,6 @@ interface PlayerHeadToHeadProps {
   player2Portrait: string; 
 }
 
-type PositionColors = {
-  [key: string]: string;
-};
-
-const positionColors: PositionColors = {
-  "qb": "#FFC107", 
-  "rb": "#4CAF50", 
-  "wr": "#2196F3", 
-  "te": "#9C27B0", 
-  "k": "#FF9800", 
-  "dst": "#F44336"
-}
-
 /**
  * Component that displays a head to head comparison of two NFL players of the same position. 
  * 
@@ -48,6 +35,30 @@ const positionColors: PositionColors = {
  * @returns 
  */
 export function PlayerHeadToHead(props: PlayerHeadToHeadProps){
+  const [positionBgColor, setPositionBgColor] = React.useState<string>("");
+
+  useEffect(() => {
+    switch(props.position) {
+      case "qb":
+        setPositionBgColor(colors.qbBackground);
+        break;
+      case "rb":
+        setPositionBgColor(colors.rbBackground);
+        break;
+      case "wr":
+        setPositionBgColor(colors.wrBackground);
+        break; 
+      case "te":
+        setPositionBgColor(colors.teBackground);
+        break;
+      case "k":
+        setPositionBgColor(colors.kBackground);
+        break;
+      case "dst":
+        setPositionBgColor(colors.dstBackground);
+        break;
+    }
+  }, []);
 
   return (
     <View
@@ -118,7 +129,7 @@ export function PlayerHeadToHead(props: PlayerHeadToHeadProps){
 {/**---------------------------------------------------------------- */}
 
       <Box
-        bg={positionColors[props.position]}
+        bg={positionBgColor}
         h={45}
         w={45}
         borderRadius={10}
