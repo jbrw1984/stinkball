@@ -91,6 +91,7 @@ export function MatchDetailsScreen(props: MatchDetailsScreenProps) {
             fontFamily={typography.fonts.poppins.bold}
             textAlign="center"
           >
+            {/** TODO: Change this prop of match name in future  */}
             Match Name
           </Text>
         </View>
@@ -98,36 +99,36 @@ export function MatchDetailsScreen(props: MatchDetailsScreenProps) {
 
         <MatchScorePreview 
             matchDetails={currentMatchState} 
-            isNavigtionActive={false}
+            isNavigationActive={false}
         /> 
 
         <View
-          height={25}
+          width={"100%"}
+          marginTop={25}
         >
+          {Object.keys(USER1_TEAM).map((key) => {
+            let position = key as FantasyTeamKey;
+
+            let nflPlayer1: PlayerInfo = USER1_TEAM[position];
+            let nflPlayer2: PlayerInfo = USER2_TEAM[position];
+
+            return (
+              <PlayerHeadToHead
+                navigation={props.navigation}
+                position={nflPlayer1.position}
+                player1Name={nflPlayer1.player_name}
+                player2Name={nflPlayer2.player_name}
+                player1NameShort={nflPlayer1.player_name_short}
+                player2NameShort={nflPlayer2.player_name_short}          
+                player1TeamCityShort={nflPlayer1.player_team_city_short}
+                player2TeamCityShort={nflPlayer2.player_team_city_short}
+                player1Points={nflPlayer1.player_points}
+                player2Points={nflPlayer2.player_points}
+                player1Portrait={nflPlayer1.player_portrait}
+                player2Portrait={nflPlayer2.player_portrait}
+            />)
+          })}
         </View>
-
-        {Object.keys(USER1_TEAM).map((key) => {
-          let position = key as FantasyTeamKey;
-
-          let nflPlayer1: PlayerInfo = USER1_TEAM[position];
-          let nflPlayer2: PlayerInfo = USER2_TEAM[position];
-
-          return (
-            <PlayerHeadToHead
-              navigation={props.navigation}
-              position={nflPlayer1.position}
-              player1Name={nflPlayer1.player_name}
-              player2Name={nflPlayer2.player_name}
-              player1NameShort={nflPlayer1.player_name_short}
-              player2NameShort={nflPlayer2.player_name_short}          
-              player1TeamCityShort={nflPlayer1.player_team_city_short}
-              player2TeamCityShort={nflPlayer2.player_team_city_short}
-              player1Points={nflPlayer1.player_points}
-              player2Points={nflPlayer2.player_points}
-              player1Portrait={nflPlayer1.player_portrait}
-              player2Portrait={nflPlayer2.player_portrait}
-          />)
-        })}
 
       </View>
     </ScrollView>

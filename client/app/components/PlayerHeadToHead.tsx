@@ -140,13 +140,13 @@ export function PlayerHeadToHead(props: PlayerHeadToHeadProps){
 
         display="flex"
         justifyContent="center" 
-        alignItems="center" 
       >
         <Text
           color={colors.textBlack}
           textAlign='center'
           fontFamily={typography.fonts.poppins.semiBold}
           fontSize={20}
+          lineHeight={30}
         >
           {props.position.toUpperCase()}
         </Text>

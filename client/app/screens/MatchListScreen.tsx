@@ -51,7 +51,7 @@ export const MatchListScreen = (props: MatchListProps) => {
               key={index} 
               matchDetails={data} 
               navigation={props.navigation} 
-              isNavigtionActive={true} 
+              isNavigationActive={true} 
             />
           ))}
         </View>

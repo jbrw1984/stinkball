@@ -14,10 +14,10 @@ type MatchListNavigationProp = NativeStackNavigationProp<
 interface MatchScorePreviewProps {
   matchDetails: MatchScorePreviewType;
   navigation?: MatchListNavigationProp;
-  isNavigtionActive: boolean; 
+  isNavigationActive: boolean; 
 }
 
-export const MatchScorePreview: React.FC<MatchScorePreviewProps> = ({ matchDetails, navigation, isNavigtionActive }) => {
+export const MatchScorePreview: React.FC<MatchScorePreviewProps> = ({ matchDetails, navigation, isNavigationActive }) => {
   /**
    * Function to navigate to the corresponding match's details page. 
    * Also, it passes the matchDetails to the Match Details screen in 
@@ -28,7 +28,7 @@ export const MatchScorePreview: React.FC<MatchScorePreviewProps> = ({ matchDetai
    *       match's info. In future, transition to using MobX-State-Tree
    */
   const handleMatchDetailPress = () => {
-    if (isNavigtionActive && navigation) {
+    if (isNavigationActive && navigation) {
       navigation.navigate("MatchDetails", {
         currentMatchState: matchDetails
       }); 
@@ -37,7 +37,7 @@ export const MatchScorePreview: React.FC<MatchScorePreviewProps> = ({ matchDetai
 
   {/* Each component gets its data from the matchDetails prop */}
   return (
-    <Pressable style={$mainContainer} disabled={!isNavigtionActive} onPress={handleMatchDetailPress}>
+    <Pressable style={$mainContainer} disabled={!isNavigationActive} onPress={handleMatchDetailPress}>
       <Image style={$teamLogo} source={matchDetails.team1ImageSource} resizeMode="contain"/>
       <View style={[$detailsContainer, {paddingRight: 5, marginLeft: -10}]}>
         {/* Need to change so text overflows */}
