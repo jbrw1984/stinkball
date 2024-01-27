@@ -47,7 +47,12 @@ export const MatchListScreen = (props: MatchListProps) => {
           <PaginateWeek weeks={weeks} onWeekChange={handleWeekChange} />
           {/* Map through each match that is part of the current week. */}
           {currentWeekData.map((data, index) => (
-            <MatchScorePreview key={index} matchDetails={data} />
+            <MatchScorePreview 
+              key={index} 
+              matchDetails={data} 
+              navigation={props.navigation} 
+              isNavigationActive={true} 
+            />
           ))}
         </View>
       </ScrollView>
@@ -72,7 +77,8 @@ export const MatchListScreen = (props: MatchListProps) => {
 
 // Styling
 const $mainContainer: ViewStyle = {
-  backgroundColor: "#292929", 
+  // backgroundColor: "#292929", 
+  backgroundColor: colors.background,
   flex: 1, 
   flexDirection: "column",
   gap: 10,

@@ -1,16 +1,43 @@
 import { Pressable, Image, View, Text, ViewStyle, TextStyle, ImageStyle } from "react-native";
 import { MatchScorePreviewType } from "./MatchScorePreviewTempData/MatchScorePreviewData";
-import { typography } from "app/theme";
+import { colors, typography } from "app/theme";
+import { AppStackParamList } from "app/navigators/AppNavigator";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+
+
+type MatchListNavigationProp = NativeStackNavigationProp<
+  AppStackParamList,
+  'MatchList'
+>
 
 // Mock interface this way we save time when linking up client and api.
 interface MatchScorePreviewProps {
   matchDetails: MatchScorePreviewType;
+  navigation?: MatchListNavigationProp;
+  isNavigationActive: boolean; 
 }
 
-export const MatchScorePreview: React.FC<MatchScorePreviewProps> = ({ matchDetails }) => {
+export const MatchScorePreview: React.FC<MatchScorePreviewProps> = ({ matchDetails, navigation, isNavigationActive }) => {
+  /**
+   * Function to navigate to the corresponding match's details page. 
+   * Also, it passes the matchDetails to the Match Details screen in 
+   * the form of the variable 'currentMatchState'. 
+   * 
+   * TODO: implement UX to go to that match's specific page. 
+   * TODO: Currently using React Navigation to pass in the specific 
+   *       match's info. In future, transition to using MobX-State-Tree
+   */
+  const handleMatchDetailPress = () => {
+    if (isNavigationActive && navigation) {
+      navigation.navigate("MatchDetails", {
+        currentMatchState: matchDetails
+      }); 
+    }
+  }
+
   {/* Each component gets its data from the matchDetails prop */}
   return (
-    <Pressable style={$mainContainer}>
+    <Pressable style={$mainContainer} disabled={!isNavigationActive} onPress={handleMatchDetailPress}>
       <Image style={$teamLogo} source={matchDetails.team1ImageSource} resizeMode="contain"/>
       <View style={[$detailsContainer, {paddingRight: 5, marginLeft: -10}]}>
         {/* Need to change so text overflows */}
@@ -36,7 +63,8 @@ const $mainContainer: ViewStyle = {
   height: 120,
   width: 330,
   maxHeight: 120,
-  backgroundColor: "#1D1D1D",
+  // backgroundColor: "#1D1D1D",
+  backgroundColor: colors.secondaryBackground,
   borderRadius: 20,
   flex: 1,
   flexDirection: "row",
