@@ -87,18 +87,25 @@ Database will store user information, NFL players, fantasy teams, and Stinkball 
     "wr1": "number",
     "wr2": "number",
     "te": "number",
-    "k": "number",
+    "pk": "number",
     "dst": "number",
 }
 ```
 
-- `id: string` - unique id for fantasy team
+- `id: number` - unique id for fantasy team
 - `team_name: string` - fantasy team name
-- `owner: string` - foreign key to id of user who owns team
+- `owner: number` - foreign key to id of user who owns team
 - `logo: string` - url path to stored logo image
 - `week: number` - week of NFL season
 - `points: number` - total points scored by team for the week
-- `positions: enum` - string of value qb, rb1, rb2, wr1, wr2, te, flex, k, or dst
+- `qb: number` - foreign key to id of qb
+- `rb1: number` - foreign key to id of rb
+- `rb2: number` - foreign key to id of rb
+- `wr1: number` - foreign key to id of wr
+- `wr2: number` - foreign key to id of wr
+- `te: number` - foreign key to id of te
+- `pk: number` - foreign key to id of pk
+- `dst: number` - foreign key to id of dst
 
 
 **Match Model**
