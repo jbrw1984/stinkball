@@ -58,7 +58,7 @@ describe("Testing NFL Players", () => {
   
   describe('[GET] /nfl-players:id', () => {
     it('response findOne nfl-player', async () => {
-      const mockNFLPlayer : NFLPlayer = {
+      const mockNFLPlayer: NFLPlayer = {
         id: 3,
         player_name: "Player 3",
         teamId: 3,
@@ -79,7 +79,7 @@ describe("Testing NFL Players", () => {
     });
 
     it('response findOne nfl-player - exception', async () => {
-      const mockNFLPlayer : NFLPlayer = {
+      const mockNFLPlayer: NFLPlayer = {
         id: 6000,
         player_name: "Player 6",
         teamId: 6,
@@ -92,5 +92,40 @@ describe("Testing NFL Players", () => {
       expect(result.status).toEqual(409);
       expect(result.body.message).toEqual("NFL Player doesn't exist");
     });
+  });
+
+  describe('[GET] /nfl-players/filter', () => {
+    it('response filteredPlayers success', async () => {
+      const filters: string[] = ["QB", "WR", "TE"];
+
+      const result = await request(app.getServer()).get(`${nflPlayersRoute.path}/filter`).send({
+        positions: filters,
+      });
+
+      expect(result.status).toEqual(200);
+      expect(result.body.message).toEqual("filteredPlayers");
+    });
+
+    it('response exception', async () => {
+      const filters: string[] = ["PG", "SF"];
+
+      const result = await request(app.getServer()).get(`${nflPlayersRoute.path}/filter`).send({
+        positions: filters,
+      });
+
+      expect(result.status).toEqual(409);
+      expect(result.body.message).toEqual("No players match the filters");
+    })
+
+    it('response success (not all position need to be valid)', async () => {
+      const filters: string[] = ["PG", "QB"];
+
+      const result = await request(app.getServer()).get(`${nflPlayersRoute.path}/filter`).send({
+        positions: filters,
+      });
+
+      expect(result.status).toEqual(200);
+      expect(result.body.message).toEqual("filteredPlayers");
+    })
   });
 });

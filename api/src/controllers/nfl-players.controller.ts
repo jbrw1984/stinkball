@@ -30,6 +30,17 @@ export class NFLPlayerController {
     }
   };
 
+  public getNFLPlayersByPositions = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const positions: string[] = req.body.positions
+      const findAllNFLPlayersData: NFLPlayer[] = await this.nflPlayer.findNFLPlayersByFilter(positions)
+
+      res.status(200).json({ data: findAllNFLPlayersData, message: 'filteredPlayers' })
+    } catch (error) {
+      next(error)
+    }
+  }
+
   public postNFLPlayers = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     let nflPlayers: NFLPlayer[] = [];
     let validPlayer: boolean = true;
